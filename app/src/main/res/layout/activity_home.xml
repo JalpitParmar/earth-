@@ -9,6 +9,7 @@
     android:background="@drawable/bg_home">
 
     <ImageButton
+        android:id="@+id/btnPlay"
         android:layout_width="278dp"
         android:layout_height="124dp"
         android:background="@drawable/play_btn"
@@ -20,6 +21,7 @@
         app:layout_constraintVertical_bias="0.563" />
 
     <ImageButton
+        android:id="@+id/btnSettings"
         android:layout_width="195dp"
         android:layout_height="70dp"
         android:background="@drawable/settings_btn"
@@ -30,6 +32,7 @@
         app:layout_constraintVertical_bias="0.774" />
 
     <ImageButton
+        android:id="@+id/btnQuit"
         android:layout_width="196dp"
         android:layout_height="74dp"
         android:background="@drawable/quit_btn"
