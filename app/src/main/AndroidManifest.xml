@@ -17,9 +17,13 @@
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="ca-app-pub-3940256099942544~3347511713" />
         <activity
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|screenSize"
             android:name=".Meanu"
             android:exported="false" />
         <activity
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|screenSize"
             android:name=".splash"
             android:exported="true">
             <intent-filter>
@@ -29,9 +33,13 @@
             </intent-filter>
         </activity>
         <activity
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|screenSize"
             android:name=".settings"
             android:exported="false" />
         <activity
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|screenSize"
             android:name=".home"
             android:exported="false" />
         <activity
