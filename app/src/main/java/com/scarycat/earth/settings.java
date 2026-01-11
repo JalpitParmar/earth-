@@ -83,7 +83,19 @@ public class settings extends AppCompatActivity {
         });
 
         // RESET GAME
-        btnResetGame.setOnClickListener(v -> showResetDialog());
+        btnResetGame.setOnClickListener(v -> {
+            v.animate()
+                    .scaleX(0.9f)
+                    .scaleY(0.9f)
+                    .setDuration(80)
+                    .withEndAction(() ->
+                            v.animate()
+                                    .scaleX(1f)
+                                    .scaleY(1f)
+                                    .setDuration(80)
+                    );
+            showResetDialog();
+        });
     }
 
     private void showResetDialog() {

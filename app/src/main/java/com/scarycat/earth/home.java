@@ -3,6 +3,8 @@ package com.scarycat.earth;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.widget.ImageButton;
 
 import androidx.activity.EdgeToEdge;
@@ -34,27 +36,58 @@ public class home extends AppCompatActivity {
         ImageButton btnQuit = findViewById(R.id.btnQuit);
         // ▶ PLAY → Main Page
         btnPlay.setOnClickListener(v -> {
-
+            v.animate()
+                    .scaleX(0.9f)
+                    .scaleY(0.9f)
+                    .setDuration(80)
+                    .withEndAction(() ->
+                            v.animate()
+                                    .scaleX(1f)
+                                    .scaleY(1f)
+                                    .setDuration(80)
+                    );
             Intent intent = new Intent(this, Meanu.class);
             startActivity(intent);
         });
 
         // ⚙ SETTINGS → Settings Page
         btnSettings.setOnClickListener(v -> {
+            v.animate()
+                    .scaleX(0.9f)
+                    .scaleY(0.9f)
+                    .setDuration(80)
+                    .withEndAction(() ->
+                            v.animate()
+                                    .scaleX(1f)
+                                    .scaleY(1f)
+                                    .setDuration(80)
+                    );
             Intent intent = new Intent(this, settings.class);
             startActivity(intent);
         });
 
         // ❌ QUIT → Exit App
         btnQuit.setOnClickListener(v -> {
-            finishAffinity(); // closes all activities
-            System.exit(0);
+            v.animate()
+                    .scaleX(0.9f)
+                    .scaleY(0.9f)
+                    .setDuration(80)
+                    .withEndAction(() ->
+                            v.animate()
+                                    .scaleX(1f)
+                                    .scaleY(1f)
+                                    .setDuration(80)
+                    );
+            new Handler(Looper.getMainLooper()).postDelayed(() -> {
+                finishAffinity(); // closes all activities
+                System.exit(0);
+            },500);
         });
 
         ///////init mission chest
         MissionChestManager chestManager = new MissionChestManager(this);
         chestManager.updateDailyChest();
-        //////init dayli haret
+        //////init dayli heart
         HeartsManager heartsManager = new HeartsManager(this);
         heartsManager.giveDailyHeartsIfNeeded(); // Give 5 hearts if not given today
 
