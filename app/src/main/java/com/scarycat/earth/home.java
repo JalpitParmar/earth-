@@ -2,6 +2,7 @@ package com.scarycat.earth;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -18,7 +19,7 @@ import com.scarycat.earth.utils.MissionChestManager;
 import com.scarycat.earth.utils.MusicManager;
 
 public class home extends AppCompatActivity {
-
+    private SharedPreferences prefs;
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +31,7 @@ public class home extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-
+        prefs = getSharedPreferences("earth_game_prefs", MODE_PRIVATE);
         ImageButton btnPlay = findViewById(R.id.btnPlay);
         ImageButton btnSettings = findViewById(R.id.btnSettings);
         ImageButton btnQuit = findViewById(R.id.btnQuit);
@@ -92,11 +93,16 @@ public class home extends AppCompatActivity {
         heartsManager.giveDailyHeartsIfNeeded(); // Give 5 hearts if not given today
 
         MusicManager.init(this);
+        if(!prefs.getBoolean("music_on", true)){
+            MusicManager.pause();
+        }
     }
     @Override
     protected void onResume() {
         super.onResume();
-        MusicManager.resume();
+        if(prefs.getBoolean("music_on", true)){
+            MusicManager.resume();
+        }
     }
 
 }
