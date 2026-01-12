@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.scarycat.earth.R;
@@ -48,17 +49,17 @@ public class LevelAdapter extends BaseAdapter {
                     .inflate(R.layout.item_level, parent, false);
         }
 
-        Button btnLevel = convertView.findViewById(R.id.btnLevel);
+        ImageButton btnLevel = convertView.findViewById(R.id.btnLevel);
         TextView tvStars = convertView.findViewById(R.id.tvStars);
+        TextView tvlevel = convertView.findViewById(R.id.btnLevel_txt);
 
         LevelItem item = levels.get(position);
 
-        btnLevel.setText(String.valueOf(item.levelNumber));
+//        btnLevel.setText(String.valueOf(item.levelNumber));
         btnLevel.setEnabled(item.unlocked);
-
         tvStars.setText(getStarsText(item.stars));
-
-
+        btnLevel.setBackgroundResource(R.drawable.unlocklevel_btn);
+        tvlevel.setText(String.valueOf(item.levelNumber));
         return convertView;
     }
     private String getStarsText(int stars) {
