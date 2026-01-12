@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:orientation="vertical">
+<FrameLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+    <ImageButton
+        android:background="@drawable/locklevel_btn"
+        android:id="@+id/btnLevel"
+        android:focusable="false"
+        android:clickable="false"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:text="1"
+        android:scaleType="fitXY"/>
+    <TextView
+        android:id="@+id/btnLevel_txt"
+        android:textColor="@color/white"
+        android:layout_width="60dp"
+        android:layout_height="52dp"
+        android:text="1"
+        android:gravity="center"/>
+</FrameLayout>
+    <TextView
+        android:id="@+id/tvStars"
+        android:text="⭐ ⭐ ⭐"
+        android:textSize="12sp" android:layout_height="wrap_content" android:layout_width="wrap_content"/>
+</LinearLayout>

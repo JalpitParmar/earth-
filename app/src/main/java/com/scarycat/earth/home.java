@@ -81,7 +81,7 @@ public class home extends AppCompatActivity {
             new Handler(Looper.getMainLooper()).postDelayed(() -> {
                 finishAffinity(); // closes all activities
                 System.exit(0);
-            },500);
+            },300);
         });
 
         ///////init mission chest

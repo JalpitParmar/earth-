@@ -2,9 +2,152 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
+    android:id="@+id/rootLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Meanu">
+    tools:context=".Meanu"
+    android:background="@drawable/level_bg_1">
 
+    <ImageView
+        android:layout_width="220dp"
+        android:layout_height="35dp"
+        android:background="@drawable/top_bar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.03"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.009" />
+<TextView
+
+    android:textStyle="bold"
+    android:textSize="10dp"
+    android:id="@+id/tvHearts"
+    android:textColor="@color/white"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="1"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintHorizontal_bias="0.125"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintVertical_bias="0.019"/>
+    <TextView
+        android:textStyle="bold"
+        android:textSize="12dp"
+        android:id="@+id/tvCoins"
+        android:textColor="@color/white"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.295"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.019"/>
+    <TextView
+        android:textStyle="bold"
+        android:textSize="12dp"
+        android:id="@+id/tvGoldBars"
+        android:textColor="@color/white"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="3"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.47"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.019"/>
+
+    <GridView
+        android:id="@+id/gridLevels"
+        android:layout_width="match_parent"
+        android:layout_height="500dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:horizontalSpacing="50dp"
+        android:numColumns="3"
+        android:padding="16dp"
+        android:verticalSpacing="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.532" />
+
+    <LinearLayout
+        android:id="@+id/navLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:gravity="center"
+        android:padding="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.923">
+
+        <ImageButton
+            android:background="@drawable/previous_btn"
+            android:id="@+id/btnPrev"
+            android:layout_width="100dp"
+            android:layout_height="60dp"
+            android:text="Prev" />
+
+        <ImageButton
+            android:background="@drawable/next_btn"
+            android:id="@+id/btnNext"
+            android:layout_width="100dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="16dp"
+            android:text="Next" />
+    </LinearLayout>
+
+    <LinearLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.08">
+
+        <ImageButton
+            android:background="@drawable/spinner_btn"
+            android:id="@+id/meanu_btnspin"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginStart="35dp"/>
+
+        <ImageButton
+            android:background="@drawable/missionchest_btn"
+            android:layout_marginStart="20dp"
+            android:id="@+id/meanu_btnmission"
+            android:layout_width="70dp"
+            android:layout_height="70dp" />
+
+        <ImageButton
+            android:background="@drawable/shop_btn"
+            android:layout_marginStart="20dp"
+            android:id="@+id/shop"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            tools:ignore="MissingConstraints" />
+        <ImageButton
+            android:background="@drawable/watchadforheart_btn"
+            android:layout_marginStart="20dp"
+            android:id="@+id/btnWatchAdHeart"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            tools:ignore="MissingConstraints" />
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
