@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
@@ -68,6 +69,11 @@ public class Meanu extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_meanu);
 
+        getWindow().getDecorView().setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+                        | View.SYSTEM_UI_FLAG_FULLSCREEN
+                        | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+        );
         prefs = new PreferencesManager(this);
 
         MobileAds.initialize(this, initializationStatus -> {});
@@ -164,7 +170,6 @@ public class Meanu extends AppCompatActivity {
         int latestLevel = getLatestUnlockedLevel();
         page = (latestLevel - 1) / LEVELS_PER_PAGE;
         loadLevels();
-
     }
 
     // ------------------ LEVEL LOAD ------------------
@@ -173,40 +178,38 @@ public class Meanu extends AppCompatActivity {
 
         List<LevelItem> levelList = new ArrayList<>();
 
+        SharedPreferences prefs =
+                getSharedPreferences("earth_game_prefs", MODE_PRIVATE);
+
         int start = page * LEVELS_PER_PAGE + 1;
         int end = Math.min(start + LEVELS_PER_PAGE - 1, MAX_LEVEL);
 
         for (int i = start; i <= end; i++) {
+            if(i == 1){
 
-            boolean unlocked;
-            if (i == 1) {
-                unlocked = true;
-            } else {
-                unlocked = getSharedPreferences("earth_game_prefs", MODE_PRIVATE)
-                        .getBoolean("UNLOCK_" + i, false);
             }
+            boolean unlocked = (i == 1)
+                    || prefs.getBoolean("UNLOCK_" + i, false);
 
-            int stars = getSharedPreferences("earth_game_prefs", MODE_PRIVATE)
-                    .getInt("LEVEL_" + i, 0);
+            int stars = prefs.getInt("LEVEL_" + i, 0);
 
             levelList.add(new LevelItem(i, unlocked, stars));
+
         }
 
         LevelAdapter adapter = new LevelAdapter(this, levelList);
         gridLevels.setAdapter(adapter);
 
-        // Change background per page
-        //int bgIndex = page % backgrounds.length;
-        //rootLayout.setBackgroundResource(backgrounds[bgIndex]);
         if (isFirstLoad) {
             int bgIndex = page % backgrounds.length;
             rootLayout.setBackgroundResource(backgrounds[bgIndex]);
             isFirstLoad = false;
         }
-        // Disable buttons properly
+
         btnPrev.setEnabled(page > 0);
         btnNext.setEnabled(end < MAX_LEVEL);
     }
+
 
 
     // ------------------ ADS ------------------
@@ -249,13 +252,19 @@ public class Meanu extends AppCompatActivity {
     // ------------------ UI ------------------
 
     private void updateCurrencyDisplay() {
-        tvCoins.setText("Coins: " + prefs.getInt("coins", 0));
-        tvHearts.setText("Hearts: " + prefs.getInt("hearts", 0));
-        tvGoldBars.setText("Gold Bars: " + prefs.getInt("goldbars", 0));
-        tvhammer.setText("hammer: " + prefs.getInt("booster_hammer_count", 0));
-        tvbomb.setText("bomb: " + prefs.getInt("booster_bomb_count", 0));
-        tvswap.setText("swap: " + prefs.getInt("booster_swap_count", 0));
-        tvcolor_bomb.setText("color bomb: " + prefs.getInt("booster_color_bomb_count", 0));
+        if(prefs.getInt("coins", 0)>=99){
+            tvCoins.setTextSize(8f);
+
+        } else if (prefs.getInt("coins", 0)>=999) {
+            tvCoins.setTextSize(6f);
+        }
+        tvCoins.setText(""+prefs.getInt("coins", 0));
+        tvHearts.setText(""+prefs.getInt("hearts", 0));
+        tvGoldBars.setText(""+prefs.getInt("goldbars", 0));
+//        tvhammer.setText("hammer: " + prefs.getInt("booster_hammer_count", 0));
+//        tvbomb.setText("bomb: " + prefs.getInt("booster_bomb_count", 0));
+//        tvswap.setText("swap: " + prefs.getInt("booster_swap_count", 0));
+//        tvcolor_bomb.setText("color bomb: " + prefs.getInt("booster_color_bomb_count", 0));
     }
     private int getLatestUnlockedLevel() {
         SharedPreferences sp = getSharedPreferences("earth_game_prefs", MODE_PRIVATE);

@@ -4,6 +4,7 @@ import static android.content.Context.MODE_PRIVATE;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,15 +12,18 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.scarycat.earth.R;
 
 import java.util.List;
+import java.util.Objects;
 
 public class LevelAdapter extends BaseAdapter {
 
     private Context context;
     private List<LevelItem> levels;
+    TextView tvlevel,tvStars;
 
     public LevelAdapter(Context context, List<LevelItem> levels) {
         this.context = context;
@@ -51,15 +55,24 @@ public class LevelAdapter extends BaseAdapter {
 
         ImageButton btnLevel = convertView.findViewById(R.id.btnLevel);
         TextView tvStars = convertView.findViewById(R.id.tvStars);
-        TextView tvlevel = convertView.findViewById(R.id.btnLevel_txt);
+        TextView tvlevel = convertView.findViewById(R.id.btnLeveltxt);
+
+
 
         LevelItem item = levels.get(position);
 
-//        btnLevel.setText(String.valueOf(item.levelNumber));
-        btnLevel.setEnabled(item.unlocked);
-        tvStars.setText(getStarsText(item.stars));
-        btnLevel.setBackgroundResource(R.drawable.unlocklevel_btn);
-        tvlevel.setText(String.valueOf(item.levelNumber));
+        //btnLevel.setText(String.valueOf(item.levelNumber));
+
+            btnLevel.setEnabled(item.unlocked);
+            tvStars.setText(getStarsText(item.stars));
+            tvlevel.setText(String.valueOf(item.levelNumber));
+            if(item.levelNumber==1){
+                btnLevel.setBackgroundResource(R.drawable.unlocklevel_btn);
+            } else if (item.unlocked) {
+                btnLevel.setBackgroundResource(R.drawable.unlocklevel_btn);
+            } else {
+                btnLevel.setBackgroundResource(R.drawable.locklevel_btn);
+            }
         return convertView;
     }
     private String getStarsText(int stars) {

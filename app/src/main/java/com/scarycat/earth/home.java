@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.view.View;
 import android.widget.ImageButton;
 
 import androidx.activity.EdgeToEdge;
@@ -26,11 +27,19 @@ public class home extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_home);
+
+        getWindow().getDecorView().setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+                        | View.SYSTEM_UI_FLAG_FULLSCREEN
+                        | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+        );
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
         prefs = getSharedPreferences("earth_game_prefs", MODE_PRIVATE);
         ImageButton btnPlay = findViewById(R.id.btnPlay);
         ImageButton btnSettings = findViewById(R.id.btnSettings);
@@ -96,6 +105,18 @@ public class home extends AppCompatActivity {
         if(!prefs.getBoolean("music_on", true)){
             MusicManager.pause();
         }
+        if(!prefs.contains("coins"))
+            prefs.edit()
+                    .putInt("hearts",5)
+                    .putBoolean("UNLOCK_",false)
+                    .putInt("LEVEL_",5)
+                    .putInt("coins",100)
+                    .putInt("goldbars",0)
+                    .putInt("booster_hammer_count",3)
+                    .putInt("booster_bomb_count",3)
+                    .putInt("booster_swap_count",2)
+                    .putInt("booster_color_bomb_count",2)
+                    .apply();
     }
     @Override
     protected void onResume() {
