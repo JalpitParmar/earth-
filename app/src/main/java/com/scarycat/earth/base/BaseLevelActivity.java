@@ -934,7 +934,7 @@ public abstract class BaseLevelActivity extends AppCompatActivity {
     }
 
     void screenShake() {
-        View root = findViewById(R.id.Lvel1);
+        View root = findViewById(R.id.rootLayout);
 
         root.animate()
                 .translationXBy(15)

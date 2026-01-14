@@ -55,26 +55,47 @@ public class LevelAdapter extends BaseAdapter {
 
         ImageButton btnLevel = convertView.findViewById(R.id.btnLevel);
         TextView tvStars = convertView.findViewById(R.id.tvStars);
-        TextView tvlevel = convertView.findViewById(R.id.btnLeveltxt);
-
-
+        TextView tvLevel = convertView.findViewById(R.id.btnLeveltxt);
 
         LevelItem item = levels.get(position);
 
-        //btnLevel.setText(String.valueOf(item.levelNumber));
+        tvLevel.setText(String.valueOf(item.levelNumber));
+        tvStars.setText(getStarsText(item.stars));
 
-            btnLevel.setEnabled(item.unlocked);
-            tvStars.setText(getStarsText(item.stars));
-            tvlevel.setText(String.valueOf(item.levelNumber));
-            if(item.levelNumber==1){
-                btnLevel.setBackgroundResource(R.drawable.unlocklevel_btn);
-            } else if (item.unlocked) {
-                btnLevel.setBackgroundResource(R.drawable.unlocklevel_btn);
-            } else {
-                btnLevel.setBackgroundResource(R.drawable.locklevel_btn);
+        // ----------- SET BACKGROUND -----------
+        if (item.unlocked) {
+            btnLevel.setBackgroundResource(R.drawable.unlocklevel_btn);
+        } else {
+            btnLevel.setBackgroundResource(R.drawable.locklevel_btn);
+        }
+
+        // ----------- CLICK HANDLING -----------
+        convertView.setOnClickListener(v -> {
+
+            if (!item.unlocked) {
+                Toast.makeText(context, "Level locked 🔒", Toast.LENGTH_SHORT).show();
+                return;
             }
+
+            SharedPreferences prefs =
+                    context.getSharedPreferences("earth_game_prefs", MODE_PRIVATE);
+
+            int hearts = prefs.getInt("hearts", 0);
+
+            if (hearts <= 0) {
+                Toast.makeText(context,
+                        "You have no hearts left!", Toast.LENGTH_LONG).show();
+                return;
+            }
+
+            context.startActivity(
+                    LevelRouter.getLevel(context, item.levelNumber)
+            );
+        });
+
         return convertView;
     }
+
     private String getStarsText(int stars) {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < stars; i++) {

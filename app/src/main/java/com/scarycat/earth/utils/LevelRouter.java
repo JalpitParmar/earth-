@@ -1,14 +1,11 @@
 package com.scarycat.earth.utils;
 
-import static android.content.Context.MODE_PRIVATE;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.util.Log;
 
 import com.scarycat.earth.levels.*;
-import com.scarycat.earth.Meanu;
 import com.scarycat.earth.Meanu;
 
 public class LevelRouter {

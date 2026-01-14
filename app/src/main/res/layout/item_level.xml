@@ -10,8 +10,9 @@
     <ImageButton
         android:background="@drawable/unlocklevel_btn"
         android:id="@+id/btnLevel"
-        android:focusable="false"
         android:clickable="false"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:text="1"

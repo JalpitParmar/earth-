@@ -6,243 +6,261 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".levels.Level1">
-<LinearLayout
-    android:layout_width="match_parent"
-    android:orientation="vertical"
-    android:layout_height="match_parent"
-    android:background="@drawable/level_bg_1">
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <ImageView
-                android:layout_gravity="center"
-                android:layout_width="350dp"
-                android:layout_height="60dp"
-                android:background="@drawable/topbar"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="25dp"
-                android:layout_marginLeft="52dp">
-                <TextView
-                    android:id="@+id/txtLevel"
-                    android:layout_width="45dp"
-                    android:gravity="center"
-                    android:layout_height="wrap_content"
-                    android:textSize="15sp"
-                    android:textStyle="bold"
-                    android:text="1"
-                    android:textColor="@color/white"/>
-                <TextView
-                    android:gravity="center"
-                    android:id="@+id/txtScore"
-                    android:layout_width="83dp"
-                    android:layout_height="wrap_content"
-                    android:textStyle="bold"
-                    android:text="100"
-                    android:textColor="@color/white"/>
-                <TextView
-                    android:gravity="center"
-                    android:id="@+id/txtTarget"
-                    android:layout_width="80dp"
-                    android:layout_height="wrap_content"
-                    android:textStyle="bold"
-                    android:textColor="@color/white"
-                    android:text="Red:1"/>
-
-                <TextView
-                    android:text="10"
-                    android:gravity="center"
-                    android:textColor="@color/white"
-                    android:textStyle="bold"
-                    android:id="@+id/txtMoves"
-                    android:layout_width="53dp"
-                    android:layout_height="wrap_content"
-                    />
-                <TextView
-                    android:id="@+id/txtTime"
-                    android:gravity="center"
-                    android:layout_width="55dp"
-                    android:layout_height="wrap_content"
-                    android:text="90"
-                    android:textStyle="bold"
-                    android:textColor="@color/white"/>
-            </LinearLayout>
-        </FrameLayout>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <androidx.appcompat.widget.AppCompatButton
-            android:layout_marginLeft="30dp"
-            android:layout_marginTop="8dp"
-            android:id="@+id/btnPause"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/white"
-            android:text="⏸ Pause"
-            android:background="@drawable/pausebtn"/>
+        android:orientation="vertical"
+        android:layout_height="match_parent"
+        android:background="@drawable/level_bg_1">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-            <ProgressBar
-                android:id="@+id/progressTargets"
-                style="?android:attr/progressBarStyleHorizontal"
-                android:layout_width="match_parent"
-                android:layout_height="10dp"
-                android:max="100"
-                android:progress="0"
-                android:progressDrawable="@drawable/progress_targets"
-                android:layout_margin="8dp"/>
-            <TextView
-                android:id="@+id/txtTutorial"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="18sp"
-                android:textColor="@android:color/white"
-                android:padding="14dp"
-                android:layout_gravity="center_horizontal"
-                android:visibility="gone"/>
+            android:gravity="center">
+
+            <FrameLayout
+                android:layout_width="350dp"
+                android:layout_height="60dp">
+
+                <!-- Background image -->
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/topbar"
+                    android:scaleType="fitXY"/>
+
+                <!-- Text container -->
+                <LinearLayout
+                    android:layout_marginTop="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:paddingStart="12dp"
+                    android:paddingEnd="12dp"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:layout_height="wrap_content"
+                        android:id="@+id/txtLevel"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="1"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"
+                        android:textSize="14sp"/>
+
+                    <TextView
+                        android:layout_height="wrap_content"
+                        android:id="@+id/txtScore"
+                        android:layout_width="0dp"
+                        android:layout_weight="1.5"
+                        android:gravity="center"
+                        android:text="100"
+                        android:textColor="@color/white"/>
+
+                    <TextView
+                        android:layout_height="wrap_content"
+                        android:id="@+id/txtTarget"
+                        android:layout_width="0dp"
+                        android:layout_weight="1.5"
+                        android:gravity="center"
+                        android:text="Red:1"
+                        android:textColor="@color/white"
+                        android:textSize="8sp"/>
+
+                    <TextView
+                        android:layout_height="wrap_content"
+                        android:id="@+id/txtMoves"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="10"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"/>
+
+                    <TextView
+                        android:layout_height="wrap_content"
+                        android:id="@+id/txtTime"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="90"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"/>
+
+                </LinearLayout>
+
+            </FrameLayout>
         </LinearLayout>
 
-    </LinearLayout>
-    <GridLayout
-        android:background="@drawable/bord"
-        android:layout_marginTop="20dp"
-        android:id="@+id/gridLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-    <LinearLayout
-        android:layout_marginTop="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <!-- HAMMER -->
-        <FrameLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1">
-
-            <ImageButton
-                android:id="@+id/btnHammer"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_gravity="center"
-                android:background="@android:color/transparent"
-                android:src="@drawable/ic_booster_hammer" />
-
-            <TextView
-                android:id="@+id/txtHammerCount"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="8dp"
+                android:id="@+id/btnPause"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="top|end"
-                android:text="0"
-                android:textSize="12sp"
-                android:textColor="@android:color/white"
-                android:background="@drawable/bg_booster_count"
-                android:padding="4dp" />
-        </FrameLayout>
-
-        <!-- SHUFFLE -->
-        <FrameLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1">
-
-            <ImageButton
-                android:id="@+id/btnShuffle"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-
-                android:layout_gravity="center"
-                android:background="@android:color/transparent"
-                android:src="@drawable/ic_booster_shuffle" />
-
-            <TextView
-                android:id="@+id/txtShuffleCount"
-                android:layout_width="wrap_content"
+                android:textColor="@color/white"
+                android:text="❚ ❚ Pause"
+                android:background="@drawable/pausebtn"/>
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="top|end"
-                android:text="0"
-                android:textSize="12sp"
-                android:textColor="@android:color/white"
-                android:background="@drawable/bg_booster_count"
-                android:padding="4dp" />
-        </FrameLayout>
+                android:orientation="vertical">
+                <ProgressBar
+                    android:id="@+id/progressTargets"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"
+                    android:max="100"
+                    android:progress="0"
+                    android:progressDrawable="@drawable/progress_targets"
+                    android:layout_margin="8dp"/>
+                <TextView
+                    android:id="@+id/txtTutorial"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp"
+                    android:textColor="@android:color/white"
+                    android:padding="14dp"
+                    android:layout_gravity="center_horizontal"
+                    android:visibility="gone"/>
+            </LinearLayout>
 
-        <!-- BOMB -->
+        </LinearLayout>
+        <GridLayout
+            android:background="@drawable/bord"
+            android:layout_marginTop="20dp"
+            android:id="@+id/gridLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <LinearLayout
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <!-- HAMMER -->
+            <FrameLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <ImageButton
+                    android:id="@+id/btnHammer"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center"
+                    android:background="@android:color/transparent"
+                    android:src="@drawable/ic_booster_hammer" />
+
+                <TextView
+                    android:id="@+id/txtHammerCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="top|end"
+                    android:text="0"
+                    android:textSize="12sp"
+                    android:textColor="@android:color/white"
+                    android:background="@drawable/bg_booster_count"
+                    android:padding="4dp" />
+            </FrameLayout>
+
+            <!-- SHUFFLE -->
+            <FrameLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <ImageButton
+                    android:id="@+id/btnShuffle"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+
+                    android:layout_gravity="center"
+                    android:background="@android:color/transparent"
+                    android:src="@drawable/ic_booster_shuffle" />
+
+                <TextView
+                    android:id="@+id/txtShuffleCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="top|end"
+                    android:text="0"
+                    android:textSize="12sp"
+                    android:textColor="@android:color/white"
+                    android:background="@drawable/bg_booster_count"
+                    android:padding="4dp" />
+            </FrameLayout>
+
+            <!-- BOMB -->
+            <FrameLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <ImageButton
+                    android:id="@+id/btnBomb"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center"
+                    android:background="@android:color/transparent"
+                    android:src="@drawable/ic_booster_bomb" />
+
+                <TextView
+                    android:id="@+id/txtBombCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="top|end"
+                    android:text="0"
+                    android:textSize="12sp"
+                    android:textColor="@android:color/white"
+                    android:background="@drawable/bg_booster_count"
+                    android:padding="4dp" />
+            </FrameLayout>
+
+            <!-- COLOR BOMB -->
+            <FrameLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <ImageButton
+                    android:id="@+id/btnColor"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center"
+                    android:background="@android:color/transparent"
+                    android:src="@drawable/ic_booster_color" />
+
+                <TextView
+                    android:id="@+id/txtColorCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="top|end"
+                    android:text="0"
+                    android:textSize="12sp"
+                    android:textColor="@android:color/white"
+                    android:background="@drawable/bg_booster_count"
+                    android:padding="4dp" />
+            </FrameLayout>
+        </LinearLayout>
+        <TextView
+            android:id="@+id/txtCombo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textSize="26sp"
+            android:textStyle="bold"
+            android:textColor="@android:color/white"
+            android:layout_gravity="center"
+            android:visibility="gone"/>
         <FrameLayout
-            android:layout_width="0dp"
+            android:id="@+id/effectsLayer"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1">
-
-            <ImageButton
-                android:id="@+id/btnBomb"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_gravity="center"
-                android:background="@android:color/transparent"
-                android:src="@drawable/ic_booster_bomb" />
-
-            <TextView
-                android:id="@+id/txtBombCount"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="top|end"
-                android:text="0"
-                android:textSize="12sp"
-                android:textColor="@android:color/white"
-                android:background="@drawable/bg_booster_count"
-                android:padding="4dp" />
+            android:clipChildren="false"
+            android:clipToPadding="false">
         </FrameLayout>
-
-        <!-- COLOR BOMB -->
-        <FrameLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1">
-
-            <ImageButton
-                android:id="@+id/btnColor"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_gravity="center"
-                android:background="@android:color/transparent"
-                android:src="@drawable/ic_booster_color" />
-
-            <TextView
-                android:id="@+id/txtColorCount"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="top|end"
-                android:text="0"
-                android:textSize="12sp"
-                android:textColor="@android:color/white"
-                android:background="@drawable/bg_booster_count"
-                android:padding="4dp" />
-        </FrameLayout>
-    </LinearLayout>
-    <TextView
-        android:id="@+id/txtCombo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text=""
-        android:textSize="26sp"
-        android:textStyle="bold"
-        android:textColor="@android:color/white"
-        android:layout_gravity="center"
-        android:visibility="gone"/>
-    <FrameLayout
-        android:id="@+id/effectsLayer"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:clipChildren="false"
-        android:clipToPadding="false">
-    </FrameLayout>
-
     </LinearLayout>
 </FrameLayout>

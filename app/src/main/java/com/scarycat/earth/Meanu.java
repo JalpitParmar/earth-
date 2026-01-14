@@ -149,9 +149,10 @@ public class Meanu extends AppCompatActivity {
                 Toast.makeText(this, "You have no hearts left! Watch an ad or wait for hearts to refill.", Toast.LENGTH_LONG).show();
                 return;  // Don't start the level if no hearts
             }
-
+            Toast.makeText(this, "level", Toast.LENGTH_SHORT).show();
             // Start the level if hearts > 0
             startActivity(LevelRouter.getLevel(this, item.levelNumber));
+
         });
 
 
