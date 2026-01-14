@@ -1,6 +1,198 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+    android:background="@drawable/level_bg_1">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_gravity="center"
+                android:layout_width="350dp"
+                android:layout_height="60dp"
+                android:background="@drawable/topbar"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:layout_marginLeft="52dp">
+                <TextView
+                    android:id="@+id/txtLevel"
+                    android:layout_width="45dp"
+                    android:gravity="center"
+                    android:layout_height="wrap_content"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:text="1"
+                    android:textColor="@color/white"/>
+                <TextView
+                    android:gravity="center"
+                    android:id="@+id/txtScore"
+                    android:layout_width="83dp"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:text="100"
+                    android:textColor="@color/white"/>
+                <TextView
+                    android:gravity="center"
+                    android:id="@+id/txtTarget"
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:textColor="@color/white"
+                    android:text="Red:1"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+                <TextView
+                    android:text="10"
+                    android:gravity="center"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    android:id="@+id/txtMoves"
+                    android:layout_width="53dp"
+                    android:layout_height="wrap_content"
+                    />
+                <TextView
+                    android:id="@+id/txtTime"
+                    android:gravity="center"
+                    android:layout_width="55dp"
+                    android:layout_height="wrap_content"
+                    android:text="90"
+                    android:textStyle="bold"
+                    android:textColor="@color/white"/>
+            </LinearLayout>
+        </FrameLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="8dp"
+            android:id="@+id/btnPause"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:text="⏸ Pause"
+            android:background="@drawable/pausebtn"/>
+    </LinearLayout>
+    <GridLayout
+        android:background="@drawable/bord"
+        android:layout_marginTop="20dp"
+        android:id="@+id/gridLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <LinearLayout
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <!-- HAMMER -->
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <ImageButton
+                android:id="@+id/btnHammer"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center"
+                android:background="@android:color/transparent"
+                android:src="@drawable/ic_booster_hammer" />
+
+            <TextView
+                android:id="@+id/txtHammerCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top|end"
+                android:text="0"
+                android:textSize="12sp"
+                android:textColor="@android:color/white"
+                android:background="@drawable/bg_booster_count"
+                android:padding="4dp" />
+        </FrameLayout>
+
+        <!-- SHUFFLE -->
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <ImageButton
+                android:id="@+id/btnShuffle"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+
+                android:layout_gravity="center"
+                android:background="@android:color/transparent"
+                android:src="@drawable/ic_booster_shuffle" />
+
+            <TextView
+                android:id="@+id/txtShuffleCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top|end"
+                android:text="0"
+                android:textSize="12sp"
+                android:textColor="@android:color/white"
+                android:background="@drawable/bg_booster_count"
+                android:padding="4dp" />
+        </FrameLayout>
+
+        <!-- BOMB -->
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <ImageButton
+                android:id="@+id/btnBomb"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center"
+                android:background="@android:color/transparent"
+                android:src="@drawable/ic_booster_bomb" />
+
+            <TextView
+                android:id="@+id/txtBombCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top|end"
+                android:text="0"
+                android:textSize="12sp"
+                android:textColor="@android:color/white"
+                android:background="@drawable/bg_booster_count"
+                android:padding="4dp" />
+        </FrameLayout>
+
+        <!-- COLOR BOMB -->
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <ImageButton
+                android:id="@+id/btnColor"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center"
+                android:background="@android:color/transparent"
+                android:src="@drawable/ic_booster_color" />
+
+            <TextView
+                android:id="@+id/txtColorCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top|end"
+                android:text="0"
+                android:textSize="12sp"
+                android:textColor="@android:color/white"
+                android:background="@drawable/bg_booster_count"
+                android:padding="4dp" />
+        </FrameLayout>
+    </LinearLayout>
+</LinearLayout>
