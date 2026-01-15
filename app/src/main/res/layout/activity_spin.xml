@@ -1,10 +1,173 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".spin">
+    tools:context=".Shop"
+    android:orientation="vertical"
+    android:background="@drawable/level_bg_1">
+    <FrameLayout
+        android:id="@+id/topBarContainer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="8dp"
+        android:layout_gravity="top">
+        <!-- Background Image -->
+        <ImageView
+            android:layout_width="220dp"
+            android:layout_height="35dp"
+            android:src="@drawable/top_bar"
+            android:scaleType="fitXY" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <!-- Overlay text slots -->
+        <LinearLayout
+            android:layout_width="220dp"
+            android:layout_height="35dp"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginStart="10dp">
+            <!-- HEARTS -->
+            <TextView
+                android:id="@+id/tvHearts"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="1"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+            <!-- COINS -->
+            <TextView
+                android:id="@+id/tvCoins"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="2"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+            <!-- GOLD BARS -->
+            <TextView
+                android:id="@+id/tvGoldBars"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="3"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </FrameLayout>
+    <FrameLayout
+        android:id="@+id/topBarContainerforbooster"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="8dp"
+        android:layout_gravity="top">
+
+        <!-- Background Image -->
+        <ImageView
+            android:layout_width="320dp"
+            android:layout_height="35dp"
+            android:src="@drawable/boosterbar"
+            android:scaleType="fitXY" />
+
+        <!-- Overlay counts -->
+        <LinearLayout
+            android:layout_width="320dp"
+            android:layout_height="35dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginStart="6dp">
+
+            <!-- HAMMER -->
+            <TextView
+                android:id="@+id/tvHammer"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="1"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                android:textStyle="bold"/>
+
+            <!-- BOMB -->
+            <TextView
+                android:id="@+id/tvBomb"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="2"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                android:textStyle="bold"/>
+
+            <!-- SHUFFLE -->
+            <TextView
+                android:id="@+id/tvSwap"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="3"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                android:textStyle="bold"/>
+
+            <!-- COLOR BOMB -->
+            <TextView
+                android:id="@+id/tvColorBomb"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="4"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                android:textStyle="bold"/>
+        </LinearLayout>
+
+    </FrameLayout>
+    <LinearLayout
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center">
+    <ImageView
+        android:id="@+id/imgWheel"
+        android:layout_width="350dp"
+        android:layout_height="350dp"
+        android:src="@drawable/wheel"/>
+
+    <Button
+        android:id="@+id/btnSpin"
+        android:text="SPIN"
+        android:layout_marginTop="24dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <Button
+        android:id="@+id/btnWatchAdSpin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Watch Ad for Extra Spin 🎁"
+        android:layout_marginTop="16dp"/>
+    <TextView
+        android:id="@+id/tvSpinResult"
+        android:textSize="18sp"
+        android:layout_marginTop="16dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    </LinearLayout>
+</LinearLayout>

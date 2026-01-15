@@ -10,51 +10,64 @@
 
     <FrameLayout
         android:id="@+id/topBarContainer"
-        android:layout_width="220dp"
-        android:layout_height="35dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="8dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true">
+        android:layout_marginTop="8dp">
 
+        <!-- Background Image -->
         <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/top_bar" />
+            android:layout_width="220dp"
+            android:layout_height="35dp"
+            android:src="@drawable/top_bar"
+            android:scaleType="fitXY" />
 
-        <TextView
-            android:id="@+id/tvHearts"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="start|center_vertical"
-            android:layout_marginStart="45dp"
-            android:text="1"
-            android:textColor="@color/white"
-            android:textSize="10sp"
-            android:textStyle="bold" />
+        <!-- Overlay text slots -->
+        <LinearLayout
+            android:layout_width="220dp"
+            android:layout_height="35dp"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginStart="10dp">
 
-        <TextView
-            android:layout_marginBottom="2dp"
-            android:id="@+id/tvCoins"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="2"
-            android:textColor="@color/white"
-            android:textSize="12sp"
-            android:textStyle="bold" />
+            <!-- HEARTS -->
+            <TextView
+                android:id="@+id/tvHearts"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="1"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/tvGoldBars"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end|center_vertical"
-            android:layout_marginEnd="20dp"
-            android:text="3"
-            android:textColor="@color/white"
-            android:textSize="12sp"
-            android:textStyle="bold" />
+            <!-- COINS -->
+            <TextView
+                android:id="@+id/tvCoins"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="2"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+            <!-- GOLD BARS -->
+            <TextView
+                android:id="@+id/tvGoldBars"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="3"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+        </LinearLayout>
     </FrameLayout>
+
 
     <!-- ================= TOP MENU BUTTONS ================= -->
 
