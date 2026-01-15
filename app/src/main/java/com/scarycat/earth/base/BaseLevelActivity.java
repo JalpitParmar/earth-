@@ -148,6 +148,8 @@ public abstract class BaseLevelActivity extends AppCompatActivity {
     FrameLayout effectsLayer;
     private RewardedAd rewardedAd;
 
+    protected int fixedh =25;
+    protected int fixedw =25;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -187,9 +189,9 @@ public abstract class BaseLevelActivity extends AppCompatActivity {
 
         btnPause.setOnClickListener(v1 -> togglePause());
 
-        txtLevel.setText("Level " + LEVEL_NUMBER);
-        txtMoves.setText("Moves: " + MOVES);
-        txtScore.setText("Score: 0");
+        txtLevel.setText(""+ LEVEL_NUMBER);
+        txtMoves.setText(""+ MOVES);
+        txtScore.setText("0");
 
 
         views = new ImageView[ROWS][COLS];
@@ -292,8 +294,8 @@ public abstract class BaseLevelActivity extends AppCompatActivity {
                 ImageView img = new ImageView(this);
 
                 GridLayout.LayoutParams p = new GridLayout.LayoutParams();
-                p.width = size;
-                p.height = size;
+                p.width = size- fixedw;
+                p.height = size- fixedh;
                 img.setLayoutParams(p);
 
                 board[r][c] = randomCandy();
@@ -385,7 +387,7 @@ public abstract class BaseLevelActivity extends AppCompatActivity {
             if (hasMatch()) {
                 MOVES--;
                 resetBlockerDamageFlags();
-                txtMoves.setText("Moves: " + MOVES);
+                txtMoves.setText("" + MOVES);
                 comboCount = 0;
                 comboMultiplier = 1f;
                 processBoard();
@@ -719,7 +721,7 @@ public abstract class BaseLevelActivity extends AppCompatActivity {
 
     void updateTargetText() {
         String[] names = {"Red", "Blue", "Green", "Yellow", "Purple"};
-        StringBuilder sb = new StringBuilder("Target: ");
+        StringBuilder sb = new StringBuilder("");
         for (int i = 0; i < TARGETS.length; i++)
             if (TARGETS[i] > 0)
                 sb.append(names[i]).append(" ").append(TARGETS[i]).append("  ");
@@ -785,7 +787,7 @@ public abstract class BaseLevelActivity extends AppCompatActivity {
         Button btnHome = dialog.findViewById(R.id.btnHome);
 
         int starsEarned = calculateStars();
-        txtScoreFinal.setText("Score: " + score);
+        txtScoreFinal.setText("" + score);
 
         // Save best stars and unlock next level
         SharedPreferences.Editor editor = sp.edit();
@@ -830,7 +832,7 @@ public abstract class BaseLevelActivity extends AppCompatActivity {
         Button btnHome = dialog.findViewById(R.id.btnHome);
         Button btnWatchAd = dialog.findViewById(R.id.btnWatchAd);
 
-        txtScoreFinal.setText("Score: " + score);
+        txtScoreFinal.setText("" + score);
 
         // ❌ DO NOT REMOVE HEART YET
         HeartsManager heartsManager = new HeartsManager(this);
@@ -868,8 +870,8 @@ public abstract class BaseLevelActivity extends AppCompatActivity {
                 // ➕ GIVE BONUS
                 MOVES += 5;
                 TIME_LEFT+=10;
-                txtTime.setText("Time: " + TIME_LEFT); // or millis
-                txtMoves.setText("Moves: " + MOVES);
+                txtTime.setText("" + TIME_LEFT); // or millis
+                txtMoves.setText("" + MOVES);
                 resumeGameAfterAd();
                 isPaused = false;
                 resumeTimer(); // or startTimer()
@@ -973,7 +975,7 @@ public abstract class BaseLevelActivity extends AppCompatActivity {
                 }
 
                 TIME_LEFT--;
-                txtTime.setText("Time: " + TIME_LEFT);
+                txtTime.setText("" + TIME_LEFT);
 
                 // 🔥 Last 10 sec warning
                 if (TIME_LEFT <= 10) {
@@ -1218,9 +1220,9 @@ public abstract class BaseLevelActivity extends AppCompatActivity {
     void updateProgressColor(int percent) {
         Drawable drawable = progressTargets.getProgressDrawable();
 
-        if (percent < 40) {
+        if (percent < 50) {
             drawable.setColorFilter(Color.RED, PorterDuff.Mode.SRC_IN);
-        } else if (percent < 70) {
+        } else if (percent < 90) {
             drawable.setColorFilter(Color.YELLOW, PorterDuff.Mode.SRC_IN);
         } else {
             drawable.setColorFilter(Color.GREEN, PorterDuff.Mode.SRC_IN);
@@ -1234,7 +1236,7 @@ public abstract class BaseLevelActivity extends AppCompatActivity {
                 from,
                 to
         );
-        animator.setDuration(800); // smooth speed
+        animator.setDuration(1000); // smooth speed
         animator.setInterpolator(new DecelerateInterpolator());
         animator.start();
 
@@ -1437,8 +1439,8 @@ public abstract class BaseLevelActivity extends AppCompatActivity {
                     tempMoves[0]--;
                     score += BONUS_PER_MOVE;
 
-                    txtScore.setText("Score: " + score);
-                    txtMoves.setText("Moves: " + tempMoves[0]);
+                    txtScore.setText("" + score);
+                    txtMoves.setText("" + tempMoves[0]);
 
                     handler.postDelayed(this, 80);
                 } else {
@@ -1472,7 +1474,7 @@ public abstract class BaseLevelActivity extends AppCompatActivity {
         if (engineFrozen) return;
 
         score += amount;
-        txtScore.setText("Score: " + score);
+        txtScore.setText("" + score);
 
         onScoreUpdated();
     }
@@ -1678,7 +1680,7 @@ public abstract class BaseLevelActivity extends AppCompatActivity {
             board[r][c] = CELL_EMPTY;
             views[r][c].setImageDrawable(null);
             score++;
-            txtScore.setText("Score: " + score);
+            txtScore.setText("" + score);
         }
     }
 
@@ -1689,7 +1691,7 @@ public abstract class BaseLevelActivity extends AppCompatActivity {
                     board[i][j] = CELL_EMPTY;
                     views[i][j].setImageDrawable(null);
                     score++;
-                    txtScore.setText("Score: " + score);
+                    txtScore.setText("" + score);
                 }
             }
         }
@@ -1702,7 +1704,7 @@ public abstract class BaseLevelActivity extends AppCompatActivity {
                     board[i][j] = CELL_EMPTY;
                     views[i][j].setImageDrawable(null);
                     score++;
-                    txtScore.setText("Score: " + score);
+                    txtScore.setText("" + score);
                 }
             }
         }
@@ -1809,7 +1811,7 @@ public abstract class BaseLevelActivity extends AppCompatActivity {
                 if (matched[r][c]) {
 
                     score += 10 * comboCount;
-                    txtScore.setText("Score: " + score);
+                    txtScore.setText("" + score);
                     board[r][c] = CELL_EMPTY;
                     views[r][c].setImageDrawable(null);
 
@@ -1899,8 +1901,8 @@ public abstract class BaseLevelActivity extends AppCompatActivity {
         enableBoardInput(true);
 
         // ✅ Refresh UI
-        txtTime.setText("Time: " + TIME_LEFT); // or millis
-        txtMoves.setText("Moves: " + MOVES);
+        txtTime.setText("" + TIME_LEFT); // or millis
+        txtMoves.setText("" + MOVES);
     }
     private void enableBoardInput(boolean enable) {
         for (int r = 0; r < ROWS; r++) {

@@ -88,7 +88,6 @@
                         android:textStyle="bold"/>
 
                 </LinearLayout>
-
             </FrameLayout>
         </LinearLayout>
 
@@ -127,19 +126,25 @@
                     android:layout_gravity="center_horizontal"
                     android:visibility="gone"/>
             </LinearLayout>
-
         </LinearLayout>
         <GridLayout
-            android:background="@drawable/bord"
+            android:layout_margin="15dp"
+            android:padding="10dp"
+            android:background="@drawable/bord_bg"
             android:layout_marginTop="20dp"
             android:id="@+id/gridLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
         <LinearLayout
+            android:layout_marginBottom="30dp"
             android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_alignParentBottom="true">
             <!-- HAMMER -->
             <FrameLayout
                 android:layout_width="0dp"
@@ -245,6 +250,7 @@
                     android:padding="4dp" />
             </FrameLayout>
         </LinearLayout>
+        </RelativeLayout>
         <TextView
             android:id="@+id/txtCombo"
             android:layout_width="wrap_content"

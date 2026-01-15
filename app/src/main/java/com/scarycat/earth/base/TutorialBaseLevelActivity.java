@@ -51,9 +51,9 @@ public abstract class TutorialBaseLevelActivity extends BaseLevelActivity {
         tutorialCompleted = true;
         disableInput = false;
 
-        if (txtTutorial != null) {
-            txtTutorial.setVisibility(View.GONE);
-        }
+//        if (txtTutorial != null) {
+//            txtTutorial.setVisibility(View.GONE);
+//        }
     }
 
     // ---------- STEPS (OVERRIDABLE) ----------
