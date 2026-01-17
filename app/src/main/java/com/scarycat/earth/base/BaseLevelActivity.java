@@ -777,6 +777,7 @@ public abstract class BaseLevelActivity extends AppCompatActivity {
         Dialog dialog = new Dialog(this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.dialog_level_complete);
+        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         dialog.setCancelable(false);
 
         TextView txtScoreFinal = dialog.findViewById(R.id.txtFinalScore);
@@ -826,6 +827,7 @@ public abstract class BaseLevelActivity extends AppCompatActivity {
         Dialog dialog = new Dialog(this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.dialog_game_over);
+        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         dialog.setCancelable(false);
 
         TextView txtScoreFinal = dialog.findViewById(R.id.txtGameOverScore);
@@ -1067,7 +1069,7 @@ public abstract class BaseLevelActivity extends AppCompatActivity {
 
     void showPauseDialog() {
         Dialog d = new Dialog(this);
-//        d.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        d.requestWindowFeature(Window.FEATURE_NO_TITLE);
         d.setContentView(R.layout.dialog_pause);
         d.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         d.setCancelable(false);

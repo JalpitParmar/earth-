@@ -1,0 +1,66 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:background="#000">
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/loading_bg">
+        <!-- CLOUD OVERLAY -->
+        <FrameLayout
+            android:id="@+id/cloudLayer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clickable="false">
+
+            <ImageView
+                android:id="@+id/cloudLeft"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:src="@drawable/cloud_left"
+                android:scaleType="fitXY"
+                android:translationX="-1000dp"/>
+
+            <ImageView
+                android:id="@+id/cloudRight"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="end"
+                android:src="@drawable/cloud_right"
+                android:scaleType="fitXY"
+                android:translationX="1000dp"/>
+        </FrameLayout>
+
+        <!-- LOADING BAR CONTAINER -->
+        <FrameLayout
+            android:id="@+id/barContainer"
+            android:layout_width="300dp"
+            android:layout_height="32dp"
+            android:layout_centerInParent="true"
+            android:background="@drawable/loading_bar_bg">
+
+            <!-- PROGRESS FILL -->
+            <View
+                android:id="@+id/progressFill"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/loading_bar_fill"/>
+        </FrameLayout>
+
+        <!-- LOADING TEXT -->
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:id="@+id/tvLoading"
+            android:layout_below="@id/barContainer"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="16dp"
+            android:text="LOADING... 0%"
+            android:textSize="18sp"
+            android:textColor="@color/black"
+            android:textStyle="bold"/>
+    </RelativeLayout>
+</LinearLayout>

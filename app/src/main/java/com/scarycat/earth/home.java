@@ -56,8 +56,9 @@ public class home extends AppCompatActivity {
                                     .scaleY(1f)
                                     .setDuration(80)
                     );
-            Intent intent = new Intent(this, Meanu.class);
+            Intent intent = new Intent(this, LoadingActivity.class);
             startActivity(intent);
+            overridePendingTransition(0, 0);
         });
 
         // ⚙ SETTINGS → Settings Page

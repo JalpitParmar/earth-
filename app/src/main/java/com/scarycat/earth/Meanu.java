@@ -76,7 +76,7 @@ public class Meanu extends AppCompatActivity {
         );
         prefs = new PreferencesManager(this);
 
-        MobileAds.initialize(this, initializationStatus -> {});
+//        MobileAds.initialize(this, initializationStatus -> {});
 
         tvGoldBars = findViewById(R.id.tvGoldBars);
         tvHearts = findViewById(R.id.tvHearts);
