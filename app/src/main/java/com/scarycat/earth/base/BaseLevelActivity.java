@@ -1066,13 +1066,13 @@ public abstract class BaseLevelActivity extends AppCompatActivity {
 
     void showPauseDialog() {
         Dialog d = new Dialog(this);
-        d.requestWindowFeature(Window.FEATURE_NO_TITLE);
+//        d.requestWindowFeature(Window.FEATURE_NO_TITLE);
         d.setContentView(R.layout.dialog_pause);
+        d.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         d.setCancelable(false);
 
         d.findViewById(R.id.btnResume).setOnClickListener(v -> {
             isPaused = false;
-            btnPause.setText("⏸ Pause");
             d.dismiss();
         });
         d.findViewById(R.id.btnRetry).setOnClickListener(view -> {
