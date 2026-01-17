@@ -19,6 +19,7 @@ import android.view.animation.DecelerateInterpolator;
 import android.view.animation.OvershootInterpolator;
 import android.widget.FrameLayout;
 import android.widget.GridLayout;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -783,8 +784,8 @@ public abstract class BaseLevelActivity extends AppCompatActivity {
         ImageView star2 = dialog.findViewById(R.id.star2);
         ImageView star3 = dialog.findViewById(R.id.star3);
 
-        Button btnNext = dialog.findViewById(R.id.btnNext);
-        Button btnHome = dialog.findViewById(R.id.btnHome);
+        ImageButton btnNext = dialog.findViewById(R.id.btnNext);
+        ImageButton btnHome = dialog.findViewById(R.id.btnHome);
 
         int starsEarned = calculateStars();
         txtScoreFinal.setText("" + score);
@@ -828,9 +829,9 @@ public abstract class BaseLevelActivity extends AppCompatActivity {
         dialog.setCancelable(false);
 
         TextView txtScoreFinal = dialog.findViewById(R.id.txtGameOverScore);
-        Button btnRetry = dialog.findViewById(R.id.btnRetry);
-        Button btnHome = dialog.findViewById(R.id.btnHome);
-        Button btnWatchAd = dialog.findViewById(R.id.btnWatchAd);
+        ImageButton btnRetry = dialog.findViewById(R.id.btnRetry);
+        ImageButton btnHome = dialog.findViewById(R.id.btnHome);
+        ImageButton btnWatchAd = dialog.findViewById(R.id.btnWatchAd);
 
         txtScoreFinal.setText("" + score);
 
