@@ -14,20 +14,19 @@
         android:layout_gravity="center"
         android:gravity="center">
     <TextView
+        android:layout_gravity="start"
         android:id="@+id/txtFinalScore"
         android:text="Score: 0"
         android:textSize="18sp"
-        android:textColor="@color/white"
+        android:textColor="#d7ad60"
         android:layout_marginBottom="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
-
     <ImageButton
         android:id="@+id/btnNext"
         android:background="@drawable/nextlevel_btn"
         android:layout_width="150dp"
         android:layout_height="60dp"/>
-
     <ImageButton
         android:layout_marginTop="15dp"
         android:id="@+id/btnHome"
@@ -45,14 +44,12 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:src="@drawable/star_empty"/>
-
             <ImageView
                 android:layout_marginRight="15dp"
                 android:id="@+id/star2"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:src="@drawable/star_empty"/>
-
             <ImageView
                 android:id="@+id/star3"
                 android:layout_width="40dp"
