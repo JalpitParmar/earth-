@@ -20,19 +20,30 @@
             android:layout_height="wrap_content"
             android:layout_gravity="start">
             <TextView
+                android:shadowColor="#3E2723"
+                android:shadowRadius="10"
+                android:shadowDy="0"
+                android:shadowDx="0"
+                android:fontFamily="@font/titan_one"
                 android:layout_gravity="start"
-                android:text="Score: "
+                android:text="SCORE: "
                 android:textSize="18sp"
                 android:textColor="#d7ad60"
                 android:layout_marginBottom="20dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
             <TextView
+                android:shadowColor="#3E2723"
+                android:shadowRadius="10"
+                android:shadowDy="0"
+                android:shadowDx="0"
                 android:layout_gravity="start"
                 android:id="@+id/txtGameOverScore"
                 android:text="0"
                 android:textSize="18sp"
                 android:textColor="#d7ad60"
+                android:fontFamily="@font/titan_one"
+                android:textStyle="bold"
                 android:layout_marginBottom="20dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
