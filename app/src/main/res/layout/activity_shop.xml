@@ -154,16 +154,19 @@
         android:layout_height="wrap_content"
         android:gravity="center">
         <ImageButton
+            android:id="@+id/btnBuyBomb"
             android:layout_marginStart="16dp"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:background="@drawable/bomb_btn"/>
         <ImageButton
+            android:id="@+id/btnBuyHammer"
             android:layout_marginStart="16dp"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:background="@drawable/hammer_btn"/>
         <ImageButton
+            android:id="@+id/btnBuyBombHammerCombo"
             android:layout_marginStart="16dp"
             android:layout_width="100dp"
             android:layout_height="100dp"
@@ -175,16 +178,19 @@
         android:layout_height="wrap_content"
         android:gravity="center">
         <ImageButton
+            android:id="@+id/btnBuySwap"
             android:layout_marginStart="16dp"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:background="@drawable/swap_btn"/>
         <ImageButton
+            android:id="@+id/btnBuyColorBomb"
             android:layout_marginStart="16dp"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:background="@drawable/colorboomb_btn"/>
         <ImageButton
+            android:id="@+id/btnBuySwapColorBombCombo"
             android:layout_marginStart="16dp"
             android:layout_width="100dp"
             android:layout_height="100dp"
@@ -196,16 +202,19 @@
         android:layout_height="wrap_content"
         android:gravity="center">
         <ImageButton
+            android:id="@+id/btnBuyHeart"
             android:layout_marginStart="16dp"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:background="@drawable/heart_btn"/>
         <ImageButton
+            android:id="@+id/btnAddCoins"
             android:layout_marginStart="16dp"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:background="@drawable/coin_btn"/>
         <ImageButton
+
             android:layout_marginStart="16dp"
             android:layout_width="100dp"
             android:layout_height="100dp"

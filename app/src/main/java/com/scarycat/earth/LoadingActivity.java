@@ -17,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.ads.MobileAds;
 import com.scarycat.earth.utils.MusicManager;
+import com.scarycat.earth.utils.PreferencesManager;
 
 public class LoadingActivity extends AppCompatActivity {
     View progressFill;
@@ -27,6 +28,7 @@ public class LoadingActivity extends AppCompatActivity {
     ImageView cloudLeft, cloudRight;
     FrameLayout cloudLayer;
     private static final int CLOUD_ANIM_DURATION = 1000;
+    private PreferencesManager prefs1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,6 +100,22 @@ public class LoadingActivity extends AppCompatActivity {
             prefs.getInt("coins", 0);
             prefs.getInt("hearts", 0);
             updateProgress(60);
+
+            prefs1 = new PreferencesManager(this);
+            // Initialize starting currency if not set
+            if (!prefs.getBoolean("initialized", false)) {
+                prefs1.putInt("coins", 1000); // Give starting coins
+                prefs1.putInt("hearts", 5);
+                prefs1.putInt("goldbars", 0);
+                prefs1.putInt("booster_hammer_count", 0);
+                prefs1.putInt("booster_bomb_count", 0);
+                prefs1.putInt("booster_swap_count", 0);
+                prefs1.putInt("booster_color_bomb_count", 0);
+                prefs1.putBoolean("initialized", true);
+            }
+
+
+
 
             // 4️⃣ Fake delay (smooth animation)
             Thread.sleep(600);
