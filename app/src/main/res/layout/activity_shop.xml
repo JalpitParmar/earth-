@@ -214,7 +214,6 @@
             android:layout_height="100dp"
             android:background="@drawable/coin_btn"/>
         <ImageButton
-
             android:layout_marginStart="16dp"
             android:layout_width="100dp"
             android:layout_height="100dp"

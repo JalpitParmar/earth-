@@ -115,8 +115,6 @@ public class LoadingActivity extends AppCompatActivity {
             }
 
 
-
-
             // 4️⃣ Fake delay (smooth animation)
             Thread.sleep(600);
             updateProgress(80);
