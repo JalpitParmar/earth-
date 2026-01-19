@@ -36,6 +36,12 @@ public class MissionChest extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mission_chest);
 
+        getWindow().getDecorView().setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+                        | View.SYSTEM_UI_FLAG_FULLSCREEN
+                        | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+        );
+
         mission = new MissionChestManager(this);
         prefs = new PreferencesManager(this);
         tvProgress = findViewById(R.id.tvProgress);

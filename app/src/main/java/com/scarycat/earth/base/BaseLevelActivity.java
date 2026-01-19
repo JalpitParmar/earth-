@@ -157,6 +157,13 @@ public abstract class BaseLevelActivity extends AppCompatActivity {
 
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_level1);
+
+        getWindow().getDecorView().setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+                        | View.SYSTEM_UI_FLAG_FULLSCREEN
+                        | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+        );
+
         MusicManager.pause();
 
         grid = findViewById(R.id.gridLayout);

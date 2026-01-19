@@ -36,6 +36,12 @@ public class LoadingActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_loading);
 
+        getWindow().getDecorView().setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+                        | View.SYSTEM_UI_FLAG_FULLSCREEN
+                        | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+        );
+
         progressFill = findViewById(R.id.progressFill);
         tvLoading = findViewById(R.id.tvLoading);
         barContainer = findViewById(R.id.barContainer);

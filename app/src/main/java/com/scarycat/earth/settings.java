@@ -3,6 +3,7 @@ package com.scarycat.earth;
 import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageButton;
 import android.widget.SeekBar;
 import android.widget.Switch;
@@ -22,6 +23,12 @@ public class settings extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_settings);
+
+        getWindow().getDecorView().setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+                        | View.SYSTEM_UI_FLAG_FULLSCREEN
+                        | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+        );
 
         prefs = getSharedPreferences("earth_game_prefs", MODE_PRIVATE);
 

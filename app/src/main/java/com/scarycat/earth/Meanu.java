@@ -74,6 +74,7 @@ public class Meanu extends AppCompatActivity {
                         | View.SYSTEM_UI_FLAG_FULLSCREEN
                         | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
         );
+
         prefs = new PreferencesManager(this);
 
 //        MobileAds.initialize(this, initializationStatus -> {});
