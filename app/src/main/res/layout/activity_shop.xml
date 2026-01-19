@@ -152,71 +152,114 @@
         android:layout_marginTop="40dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="horizontal"
         android:gravity="center">
+
         <ImageButton
             android:id="@+id/btnBuyBomb"
-            android:layout_marginStart="16dp"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="0dp"
+            android:layout_height="90dp"
+            android:layout_weight="1"
+            android:layout_margin="8dp"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"
             android:background="@drawable/bomb_btn"/>
+
         <ImageButton
             android:id="@+id/btnBuyHammer"
-            android:layout_marginStart="16dp"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="0dp"
+            android:layout_height="90dp"
+            android:layout_weight="1"
+            android:layout_margin="8dp"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"
             android:background="@drawable/hammer_btn"/>
+
         <ImageButton
             android:id="@+id/btnBuyBombHammerCombo"
-            android:layout_marginStart="16dp"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="0dp"
+            android:layout_height="90dp"
+            android:layout_weight="1"
+            android:layout_margin="8dp"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"
             android:background="@drawable/hb_combo_btn"/>
     </LinearLayout>
+
     <LinearLayout
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="horizontal"
         android:gravity="center">
+
         <ImageButton
             android:id="@+id/btnBuySwap"
-            android:layout_marginStart="16dp"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="0dp"
+            android:layout_height="90dp"
+            android:layout_weight="1"
+            android:layout_margin="8dp"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"
             android:background="@drawable/swap_btn"/>
+
         <ImageButton
             android:id="@+id/btnBuyColorBomb"
-            android:layout_marginStart="16dp"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="0dp"
+            android:layout_height="90dp"
+            android:layout_weight="1"
+            android:layout_margin="8dp"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"
             android:background="@drawable/colorboomb_btn"/>
+
         <ImageButton
             android:id="@+id/btnBuySwapColorBombCombo"
-            android:layout_marginStart="16dp"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="0dp"
+            android:layout_height="90dp"
+            android:layout_weight="1"
+            android:layout_margin="8dp"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"
             android:background="@drawable/sc_combo_btn"/>
     </LinearLayout>
+
     <LinearLayout
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="horizontal"
         android:gravity="center">
+
         <ImageButton
             android:id="@+id/btnBuyHeart"
-            android:layout_marginStart="16dp"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="0dp"
+            android:layout_height="90dp"
+            android:layout_weight="1"
+            android:layout_margin="8dp"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"
             android:background="@drawable/heart_btn"/>
+
         <ImageButton
             android:id="@+id/btnAddCoins"
-            android:layout_marginStart="16dp"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="0dp"
+            android:layout_height="90dp"
+            android:layout_weight="1"
+            android:layout_margin="8dp"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"
             android:background="@drawable/coin_btn"/>
+
         <ImageButton
-            android:layout_marginStart="16dp"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:id="@+id/btnBuyGoldBar"
+            android:layout_width="0dp"
+            android:layout_height="90dp"
+            android:layout_weight="1"
+            android:layout_margin="8dp"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"
             android:background="@drawable/goldbar_btn"/>
     </LinearLayout>
+
 </LinearLayout>
