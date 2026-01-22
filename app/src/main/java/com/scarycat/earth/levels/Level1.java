@@ -14,11 +14,13 @@ public class Level1 extends TutorialBaseLevelActivity {
 
         ROWS = 6;
         COLS = 6;
-        MOVES = 10;
+        MOVES = 20;
+
 
         ALLOWED_CANDIES = new int[]{0,1,2,3};
-        TARGETS = new int[]{3,0,0,0,0};
-        Toast.makeText(this, "1", Toast.LENGTH_SHORT).show();
+        TARGETS = new int[]{10,0,0,0,0};
+
+
         super.onCreate(savedInstanceState);
     }
 

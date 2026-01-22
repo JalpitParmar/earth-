@@ -25,6 +25,7 @@ public class LevelRouter {
             case 8: return new Intent(context, Level8.class);
             case 9: return new Intent(context, Level9.class);
             case 10: return new Intent(context, Level10.class);
+            case 12: return new Intent(context, Level12.class);
             default:
                 return new Intent(context, Meanu.class); // no more levels
         }
@@ -41,6 +42,8 @@ public class LevelRouter {
             case 8: return new Intent(context, Level8.class);
             case 9: return new Intent(context, Level9.class);
             case 10: return new Intent(context, Level10.class);
+            case 11: return new Intent(context, Level11.class);
+            case 12: return new Intent(context, Level12.class);
             default:
                 return new Intent(context, Meanu.class);
         }

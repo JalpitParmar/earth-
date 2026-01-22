@@ -84,15 +84,16 @@ public abstract class BaseLevelActivity extends AppCompatActivity {
     protected Handler handler = new Handler();
     Random random = new Random();
 
-    int[] candyImages = {
+    protected int[] candyImages = {
             R.drawable.e1,
             R.drawable.e2,
             R.drawable.e3,
             R.drawable.e4,
-            R.drawable.e5
+            R.drawable.e5,
+            R.drawable.e6
     };
 
-    int[] SPAWN_RATE = {
+    protected int[] SPAWN_RATE = {
             40, // Red
             30, // Blue
             20, // Green
@@ -103,7 +104,7 @@ public abstract class BaseLevelActivity extends AppCompatActivity {
     Handler timerHandler = new Handler();
     Runnable timerRunnable;
 
-    int TIME_LEFT = 60;
+    protected int TIME_LEFT = 60;
     boolean timerRunning = false;
     boolean isPaused = false;
 
@@ -128,8 +129,8 @@ public abstract class BaseLevelActivity extends AppCompatActivity {
     protected boolean disableInput = false;
     int BONUS_PER_MOVE = 10;
     boolean bonusApplied = false;
-    int star3 = 300;//
-    int star2 = 200;//
+    protected int star3 = 300;//
+    protected int star2 = 200;//
 
     protected boolean UNLIMITED_MOVES = false;
     protected boolean SHOW_TUTORIAL = false;
@@ -149,8 +150,8 @@ public abstract class BaseLevelActivity extends AppCompatActivity {
     FrameLayout effectsLayer;
     private RewardedAd rewardedAd;
 
-    protected int fixedh =25;
-    protected int fixedw =25;
+    protected int fixedh = 25;
+    protected int fixedw = 25;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -728,7 +729,7 @@ public abstract class BaseLevelActivity extends AppCompatActivity {
     }
 
     void updateTargetText() {
-        String[] names = {"Red", "Blue", "Green", "Yellow", "Purple"};
+        String[] names = {"\uD83D\uDD25", "\uD83D\uDCA7", "\uD83E\uDEA8", "\uD83C\uDF2C", "\uD83C\uDF43"};
         StringBuilder sb = new StringBuilder("");
         for (int i = 0; i < TARGETS.length; i++)
             if (TARGETS[i] > 0)
