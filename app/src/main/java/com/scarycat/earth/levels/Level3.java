@@ -17,12 +17,12 @@ public class Level3 extends ScoreLevelBaseActivity {
         COLS = 6;
         TIME_LEFT = 80;
         MOVES = 20;
-        TARGET_SCORE = 800;
+        TARGET_SCORE = 600;
         SCORE_ONLY = true;
         ALLOWED_CANDIES = new int[]{0,1,2,3,4};
         SPAWN_RATE =new int[]{25,25,20,15,15};
-        star3 = 900;
-        star2 = 800;
+        star3 = 750;
+        star2 = 450;
 
         super.onCreate(savedInstanceState);
     }

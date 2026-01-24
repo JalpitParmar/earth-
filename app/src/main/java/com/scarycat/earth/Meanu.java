@@ -41,7 +41,7 @@ public class Meanu extends AppCompatActivity {
     private PreferencesManager prefs;
 
     private int page = 0;
-    private static final int LEVELS_PER_PAGE = 10;
+    private static final int LEVELS_PER_PAGE = 5;
 
     private int[] backgrounds = {
             R.drawable.level_bg_1,
@@ -56,7 +56,7 @@ public class Meanu extends AppCompatActivity {
             R.drawable.level_bg_10
 
     };
-    private static final int MAX_LEVEL = 100; // or however many you have
+    private static final int MAX_LEVEL = 50; // or however many you have
 
     private boolean isFirstLoad = true;
 

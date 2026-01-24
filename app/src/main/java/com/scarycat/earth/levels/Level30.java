@@ -4,21 +4,21 @@ import android.os.Bundle;
 
 import com.scarycat.earth.base.BaseLevelActivity;
 
-public class Level6 extends BaseLevelActivity {
+public class Level30 extends BaseLevelActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        LEVEL_NUMBER = 6;
-        ROWS = 7;
-        COLS = 7;
-        MOVES = 18;
-        TIME_LEFT = 75;
-        ALLOWED_CANDIES = new int[]{0,1,2,3};
-        TARGETS = new int[]{8,8,0,0,0};
-        SPAWN_RATE =new int[]{25,25,20,15,15};
-        star3 = 700;
-        star2 = 450;
+        LEVEL_NUMBER =30;
+        ROWS = 9;
+        COLS = 9;
+        MOVES = 15;
+        TIME_LEFT = 55;
+        ALLOWED_CANDIES = new int[]{0,1,2,3,4,5,6};
+        TARGETS = new int[]{10,10,9,0,0,0,0};
+        SPAWN_RATE =new int[]{18,22,18,17,10,10,5};
+        star3 = 1200;
+        star2 = 750;
         super.onCreate(savedInstanceState);
     }
     @Override

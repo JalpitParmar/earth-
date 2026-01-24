@@ -13,14 +13,14 @@ public class Level7 extends BaseLevelActivity {
 
         ROWS = 8;
         COLS = 8;
-        MOVES = 16;
-        TIME_LEFT = 65;
+        MOVES = 18;
+        TIME_LEFT = 70;
         ALLOWED_CANDIES = new int[]{0,1,2,3};
         TARGETS = new int[]{0,0,10,8,0};
         SPAWN_RATE =new int[]{25,25,20,15,15};
 
-        star3 = 1100;
-        star2 = 1000;
+        star3 = 750;
+        star2 = 500;
         super.onCreate(savedInstanceState);
     }
     @Override

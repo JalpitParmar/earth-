@@ -132,9 +132,7 @@
                     android:visibility="gone"/>
             </LinearLayout>
         </LinearLayout>
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+
         <GridLayout
             android:layout_margin="15dp"
             android:padding="10dp"
@@ -144,136 +142,145 @@
             android:layout_gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
-
-        <LinearLayout
-            android:layout_marginBottom="30dp"
-            android:layout_marginTop="10dp"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_alignParentBottom="true">
-            <!-- HAMMER -->
-            <FrameLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1">
-
-                <ImageButton
-                    android:id="@+id/btnHammer"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:layout_gravity="center"
-                    android:background="@android:color/transparent"
-                    android:src="@drawable/ic_booster_hammer" />
-
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_alignParentBottom="true">
                 <TextView
-                    android:id="@+id/txtHammerCount"
+                    android:id="@+id/txtCombo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="top|end"
-                    android:text="0"
-                    android:textSize="12sp"
+                    android:text=""
+                    android:textSize="26sp"
+                    android:textStyle="bold"
                     android:textColor="@android:color/white"
-                    android:background="@drawable/bg_booster_count"
-                    android:padding="4dp" />
-            </FrameLayout>
-
-            <!-- SHUFFLE -->
-            <FrameLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1">
-
-                <ImageButton
-                    android:id="@+id/btnShuffle"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-
                     android:layout_gravity="center"
-                    android:background="@android:color/transparent"
-                    android:src="@drawable/ic_booster_shuffle" />
+                    android:visibility="gone"/>
 
-                <TextView
-                    android:id="@+id/txtShuffleCount"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:gravity="center"
+                    android:padding="8dp"
+                    android:layout_marginBottom="30dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="top|end"
-                    android:text="0"
-                    android:textSize="12sp"
-                    android:textColor="@android:color/white"
-                    android:background="@drawable/bg_booster_count"
-                    android:padding="4dp" />
-            </FrameLayout>
+                    android:orientation="horizontal">
+                    <!-- HAMMER -->
+                    <FrameLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1">
 
-            <!-- BOMB -->
-            <FrameLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1">
+                        <ImageButton
+                            android:id="@+id/btnHammer"
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            android:layout_gravity="center"
+                            android:background="@android:color/transparent"
+                            android:src="@drawable/ic_booster_hammer" />
 
-                <ImageButton
-                    android:id="@+id/btnBomb"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:layout_gravity="center"
-                    android:background="@android:color/transparent"
-                    android:src="@drawable/ic_booster_bomb" />
+                        <TextView
+                            android:id="@+id/txtHammerCount"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="top|end"
+                            android:text="0"
+                            android:textSize="12sp"
+                            android:textColor="@android:color/white"
+                            android:background="@drawable/bg_booster_count"
+                            android:padding="4dp" />
+                    </FrameLayout>
 
-                <TextView
-                    android:id="@+id/txtBombCount"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="top|end"
-                    android:text="0"
-                    android:textSize="12sp"
-                    android:textColor="@android:color/white"
-                    android:background="@drawable/bg_booster_count"
-                    android:padding="4dp" />
-            </FrameLayout>
+                    <!-- SHUFFLE -->
+                    <FrameLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1">
 
-            <!-- COLOR BOMB -->
-            <FrameLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1">
+                        <ImageButton
+                            android:id="@+id/btnShuffle"
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
 
-                <ImageButton
-                    android:id="@+id/btnColor"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:layout_gravity="center"
-                    android:background="@android:color/transparent"
-                    android:src="@drawable/ic_booster_color" />
+                            android:layout_gravity="center"
+                            android:background="@android:color/transparent"
+                            android:src="@drawable/ic_booster_shuffle" />
 
-                <TextView
-                    android:id="@+id/txtColorCount"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="top|end"
-                    android:text="0"
-                    android:textSize="12sp"
-                    android:textColor="@android:color/white"
-                    android:background="@drawable/bg_booster_count"
-                    android:padding="4dp" />
-            </FrameLayout>
-        </LinearLayout>
+                        <TextView
+                            android:id="@+id/txtShuffleCount"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="top|end"
+                            android:text="0"
+                            android:textSize="12sp"
+                            android:textColor="@android:color/white"
+                            android:background="@drawable/bg_booster_count"
+                            android:padding="4dp" />
+                    </FrameLayout>
+
+                    <!-- BOMB -->
+                    <FrameLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1">
+
+                        <ImageButton
+                            android:id="@+id/btnBomb"
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            android:layout_gravity="center"
+                            android:background="@android:color/transparent"
+                            android:src="@drawable/ic_booster_bomb" />
+
+                        <TextView
+                            android:id="@+id/txtBombCount"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="top|end"
+                            android:text="0"
+                            android:textSize="12sp"
+                            android:textColor="@android:color/white"
+                            android:background="@drawable/bg_booster_count"
+                            android:padding="4dp" />
+                    </FrameLayout>
+
+                    <!-- COLOR BOMB -->
+                    <FrameLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1">
+
+                        <ImageButton
+                            android:id="@+id/btnColor"
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            android:layout_gravity="center"
+                            android:background="@android:color/transparent"
+                            android:src="@drawable/ic_booster_color" />
+
+                        <TextView
+                            android:id="@+id/txtColorCount"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="top|end"
+                            android:text="0"
+                            android:textSize="12sp"
+                            android:textColor="@android:color/white"
+                            android:background="@drawable/bg_booster_count"
+                            android:padding="4dp" />
+                    </FrameLayout>
+                </LinearLayout>
+            </LinearLayout>
         </RelativeLayout>
-        <TextView
-            android:id="@+id/txtCombo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text=""
-            android:textSize="26sp"
-            android:textStyle="bold"
-            android:textColor="@android:color/white"
-            android:layout_gravity="center"
-            android:visibility="gone"/>
-        <FrameLayout
-            android:id="@+id/effectsLayer"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:clipChildren="false"
-            android:clipToPadding="false">
-        </FrameLayout>
     </LinearLayout>
+    <FrameLayout
+        android:id="@+id/effectsLayer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipChildren="false"
+        android:clipToPadding="false"/>
 </FrameLayout>

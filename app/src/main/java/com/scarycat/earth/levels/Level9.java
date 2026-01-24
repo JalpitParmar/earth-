@@ -11,14 +11,14 @@ public class Level9 extends ScoreLevelBaseActivity {
 
         ROWS = 8;
         COLS = 8;
-        TIME_LEFT = 60;
-        MOVES = 16;
-        TARGET_SCORE = 1500;
+        TIME_LEFT = 65;
+        MOVES = 17;
+        TARGET_SCORE = 800;
         SCORE_ONLY = true;
         ALLOWED_CANDIES = new int[]{0,1,2,3,4};
         SPAWN_RATE =new int[]{25,25,20,15,15};
-        star3 = 1600;
-        star2 = 1500;
+        star3 = 900;
+        star2 = 650;
 
         super.onCreate(savedInstanceState);
     }

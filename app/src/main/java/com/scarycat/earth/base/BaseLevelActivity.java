@@ -69,7 +69,7 @@ public abstract class BaseLevelActivity extends AppCompatActivity {
     // 0=Red, 1=Blue, 2=Green, 3=Yellow, 4=Purple
     protected int[] ALLOWED_CANDIES = {0, 1, 2, 3};
 
-    protected int[] TARGETS = {5, 5, 0, 0, 0};
+    protected int[] TARGETS = {5, 5, 0, 0, 0,0,0,0,0,0,0,0,0,0};
     // ===============================================
 
     GridLayout grid;
@@ -90,9 +90,22 @@ public abstract class BaseLevelActivity extends AppCompatActivity {
             R.drawable.e3,
             R.drawable.e4,
             R.drawable.e5,
-            R.drawable.e6
-    };
+            R.drawable.e6,
+            R.drawable.e7,
+            R.drawable.e8,
+            R.drawable.e9,
+            R.drawable.e10,
+            R.drawable.e11,
+            R.drawable.e12,
+            R.drawable.e13,
+            R.drawable.e14
 
+    };
+    protected int[] ICE = {
+            R.drawable.ice_1,
+            R.drawable.ice_2,
+            R.drawable.ice_3
+    };
     protected int[] SPAWN_RATE = {
             40, // Red
             30, // Blue
@@ -164,8 +177,6 @@ public abstract class BaseLevelActivity extends AppCompatActivity {
                         | View.SYSTEM_UI_FLAG_FULLSCREEN
                         | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
         );
-
-        MusicManager.pause();
 
         grid = findViewById(R.id.gridLayout);
         txtLevel = findViewById(R.id.txtLevel);
@@ -699,11 +710,11 @@ public abstract class BaseLevelActivity extends AppCompatActivity {
                 if (HAS_BLOCKERS && blockers[r][c] > 0) {
 
                     if (blockers[r][c] == 3) {
-                        views[r][c].setImageResource(R.drawable.ice_3);
+                        views[r][c].setImageResource(ICE[2]);
                     } else if (blockers[r][c] == 2) {
-                        views[r][c].setImageResource(R.drawable.ice_2);
+                        views[r][c].setImageResource(ICE[1]);
                     } else {
-                        views[r][c].setImageResource(R.drawable.ice_1);
+                        views[r][c].setImageResource(ICE[0]);
                     }
 
                     continue; // VERY IMPORTANT
@@ -729,7 +740,7 @@ public abstract class BaseLevelActivity extends AppCompatActivity {
     }
 
     void updateTargetText() {
-        String[] names = {"\uD83D\uDD25", "\uD83D\uDCA7", "\uD83E\uDEA8", "\uD83C\uDF2C", "\uD83C\uDF43"};
+        String[] names = {"\uD83D\uDD25", "\uD83D\uDCA7", "\uD83E\uDEA8", "\uD83C\uDF2C", "\uD83C\uDF43","❄\uFE0F","\uD83C\uDF32","☄\uFE0F","⚡\uFE0F","\uD83D\uDC8E","\uD83D\uDFE1","☁\uFE0F","Mud","☠\uFE0F"};
         StringBuilder sb = new StringBuilder("");
         for (int i = 0; i < TARGETS.length; i++)
             if (TARGETS[i] > 0)
@@ -775,7 +786,7 @@ public abstract class BaseLevelActivity extends AppCompatActivity {
     void showLevelCompleteDialog() {
         isPaused = !isPaused;
         new MissionChestManager(this).onLevelWon();
-
+        score += MOVES * 10;
         // Reward coins on win
         SharedPreferences sp = getSharedPreferences("earth_game_prefs", MODE_PRIVATE);
         int coins = sp.getInt("coins", 0);

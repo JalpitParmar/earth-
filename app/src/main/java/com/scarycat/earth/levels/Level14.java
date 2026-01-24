@@ -2,27 +2,24 @@ package com.scarycat.earth.levels;
 
 import android.os.Bundle;
 
-import com.scarycat.earth.base.ScoreLevelBaseActivity;
+import com.scarycat.earth.base.BaseLevelActivity;
 
-public class Level10 extends ScoreLevelBaseActivity {
+public class Level14 extends BaseLevelActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        LEVEL_NUMBER = 10;
 
+        LEVEL_NUMBER =14;
         ROWS = 8;
         COLS = 8;
-        TIME_LEFT = 65;
         MOVES = 17;
-        TARGET_SCORE = 900;
-        SCORE_ONLY = true;
-        ALLOWED_CANDIES = new int[]{0,1,2,3,4};
-        SPAWN_RATE =new int[]{25,25,20,15,15};
-        star3 = 1000;
-        star2 = 700;
-
+        TIME_LEFT = 60;
+        ALLOWED_CANDIES = new int[]{0,1,2,3,4,5};
+        TARGETS = new int[]{10,10,8,0,0,0};
+        SPAWN_RATE =new int[]{30,20,20,15,10,5};
+        star3 = 900;
+        star2 = 600;
         super.onCreate(savedInstanceState);
     }
-
     @Override
     protected void showStep0() {
 
