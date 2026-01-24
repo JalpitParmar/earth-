@@ -196,6 +196,120 @@
             android:configChanges="orientation|screenSize"
             android:screenOrientation="portrait"/>
         <activity
+            android:name=".levels.Level32"
+            android:exported="true"
+            android:configChanges="orientation|screenSize"
+            android:screenOrientation="portrait"/>
+
+        <activity
+            android:name=".levels.Level33"
+            android:exported="true"
+            android:configChanges="orientation|screenSize"
+            android:screenOrientation="portrait"/>
+
+        <activity
+            android:name=".levels.Level34"
+            android:exported="true"
+            android:configChanges="orientation|screenSize"
+            android:screenOrientation="portrait"/>
+
+        <activity
+            android:name=".levels.Level35"
+            android:exported="true"
+            android:configChanges="orientation|screenSize"
+            android:screenOrientation="portrait"/>
+
+        <activity
+            android:name=".levels.Level36"
+            android:exported="true"
+            android:configChanges="orientation|screenSize"
+            android:screenOrientation="portrait"/>
+
+        <activity
+            android:name=".levels.Level37"
+            android:exported="true"
+            android:configChanges="orientation|screenSize"
+            android:screenOrientation="portrait"/>
+
+        <activity
+            android:name=".levels.Level38"
+            android:exported="true"
+            android:configChanges="orientation|screenSize"
+            android:screenOrientation="portrait"/>
+
+        <activity
+            android:name=".levels.Level39"
+            android:exported="true"
+            android:configChanges="orientation|screenSize"
+            android:screenOrientation="portrait"/>
+
+        <activity
+            android:name=".levels.Level40"
+            android:exported="true"
+            android:configChanges="orientation|screenSize"
+            android:screenOrientation="portrait"/>
+
+        <activity
+            android:name=".levels.Level41"
+            android:exported="true"
+            android:configChanges="orientation|screenSize"
+            android:screenOrientation="portrait"/>
+
+        <activity
+            android:name=".levels.Level42"
+            android:exported="true"
+            android:configChanges="orientation|screenSize"
+            android:screenOrientation="portrait"/>
+
+        <activity
+            android:name=".levels.Level43"
+            android:exported="true"
+            android:configChanges="orientation|screenSize"
+            android:screenOrientation="portrait"/>
+
+        <activity
+            android:name=".levels.Level44"
+            android:exported="true"
+            android:configChanges="orientation|screenSize"
+            android:screenOrientation="portrait"/>
+
+        <activity
+            android:name=".levels.Level45"
+            android:exported="true"
+            android:configChanges="orientation|screenSize"
+            android:screenOrientation="portrait"/>
+
+        <activity
+            android:name=".levels.Level46"
+            android:exported="true"
+            android:configChanges="orientation|screenSize"
+            android:screenOrientation="portrait"/>
+
+        <activity
+            android:name=".levels.Level47"
+            android:exported="true"
+            android:configChanges="orientation|screenSize"
+            android:screenOrientation="portrait"/>
+
+        <activity
+            android:name=".levels.Level48"
+            android:exported="true"
+            android:configChanges="orientation|screenSize"
+            android:screenOrientation="portrait"/>
+
+        <activity
+            android:name=".levels.Level49"
+            android:exported="true"
+            android:configChanges="orientation|screenSize"
+            android:screenOrientation="portrait"/>
+
+        <activity
+            android:name=".levels.Level50"
+            android:exported="true"
+            android:configChanges="orientation|screenSize"
+            android:screenOrientation="portrait"/>
+
+        <activity
             android:name=".MissionChest"
             android:exported="false"
             android:configChanges="orientation|screenSize"

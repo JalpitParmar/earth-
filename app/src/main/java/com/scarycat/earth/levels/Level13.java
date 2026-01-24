@@ -14,18 +14,18 @@ public class Level13 extends BlockerLevelBaseActivity {
         LEVEL_NUMBER = 13;
         ROWS = 8;
         COLS = 8;
-        MOVES = 20;
-        TIME_LEFT = 70;
+        MOVES = 22;
+        TIME_LEFT = 80;
         HAS_BLOCKERS = true;
         ICE = new int[]{
                 R.drawable.ice_1,
                 R.drawable.ice_2,
                 R.drawable.ice_3
         };
-        ALLOWED_CANDIES = new int[]{0,1,2,3,4,5};
-        SPAWN_RATE =new int[]{25,25,20,15,15};
+        ALLOWED_CANDIES = new int[]{0,1,2,3,4,5,6,7,8};
+        SPAWN_RATE =new int[]{25,25,20,15,10,5,0,0,0};
         star3 = 900;
-        star2 = 600;
+        star2 = 500;
         super.onCreate(savedInstanceState);
     }
 
@@ -44,7 +44,7 @@ public class Level13 extends BlockerLevelBaseActivity {
     protected void showStep2() {
 
     }
-    
+
     @Override
     protected void initBlockers() {
 
@@ -60,8 +60,8 @@ public class Level13 extends BlockerLevelBaseActivity {
                 {0,0,0,0,0,0,0,0},
                 {0,0,0,0,0,0,0,0},
                 {0,0,0,0,0,0,0,0},
-                {0,0,0,3,3,0,0,0},
-                {0,0,3,3,3,3,0,0},
+                {0,0,0,2,2,0,0,0},
+                {0,0,1,1,1,1,0,0},
                 {0,0,0,0,0,0,0,0},
                 {0,0,0,0,0,0,0,0},
                 {0,0,0,0,0,0,0,0}

@@ -12,18 +12,18 @@ public class Level36 extends BlockerLevelBaseActivity {
         LEVEL_NUMBER = 36;
         ROWS = 9;
         COLS = 9;
-        MOVES = 16;
-        TIME_LEFT = 65;
+        MOVES = 25;
+        TIME_LEFT = 70;
         HAS_BLOCKERS = true;
         ICE = new int[] {
                 R.drawable.ice_1,
                 R.drawable.ice_2,
                 R.drawable.ice_3
         };
-        ALLOWED_CANDIES = new int[]{0,1,2,3,4,5,6,7};
-        SPAWN_RATE =new int[]{18,17,16,16,12,11,10};
-        star3 = 1450;
-        star2 = 900;
+        ALLOWED_CANDIES = new int[]{0,1,2,3,4,5,6,7,8};
+        SPAWN_RATE =new int[]{0,18,17,16,16,12,11,10,0};
+        star3 = 1000;
+        star2 = 800;
         super.onCreate(savedInstanceState);
     }
 

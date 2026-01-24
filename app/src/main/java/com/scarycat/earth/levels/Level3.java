@@ -15,14 +15,14 @@ public class Level3 extends ScoreLevelBaseActivity {
 
         ROWS = 6;
         COLS = 6;
-        TIME_LEFT = 80;
-        MOVES = 20;
+        TIME_LEFT = 90;
+        MOVES = 25;
         TARGET_SCORE = 600;
         SCORE_ONLY = true;
-        ALLOWED_CANDIES = new int[]{0,1,2,3,4};
-        SPAWN_RATE =new int[]{25,25,20,15,15};
-        star3 = 750;
-        star2 = 450;
+        ALLOWED_CANDIES = new int[]{0,1,2,3,4,5,6,7,8};
+        SPAWN_RATE =new int[]{25,25,20,15,15,0,0,0,0};
+        star3 = 500;
+        star2 = 400;
 
         super.onCreate(savedInstanceState);
     }

@@ -11,14 +11,14 @@ public class Level32 extends ScoreLevelBaseActivity {
 
         ROWS = 9;
         COLS = 9;
-        TIME_LEFT = 55;
-        MOVES = 15;
+        TIME_LEFT = 70;
+        MOVES = 20;
         TARGET_SCORE = 1000;
         SCORE_ONLY = true;
-        ALLOWED_CANDIES = new int[]{0,1,2,3,4,5,6,7};
-        SPAWN_RATE =new int[]{0,20,18,16,15,12,10,9};
-        star3 = 1300;
-        star2 = 820;
+        ALLOWED_CANDIES = new int[]{0,1,2,3,4,5,6,7,8};
+        SPAWN_RATE =new int[]{0,20,18,16,15,12,10,9,0};
+        star3 = 1000;
+        star2 = 800;
 
         super.onCreate(savedInstanceState);
     }

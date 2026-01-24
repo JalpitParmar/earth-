@@ -67,9 +67,9 @@ public abstract class BaseLevelActivity extends AppCompatActivity {
 
     // Allowed candies in this level
     // 0=Red, 1=Blue, 2=Green, 3=Yellow, 4=Purple
-    protected int[] ALLOWED_CANDIES = {0, 1, 2, 3};
+    protected int[] ALLOWED_CANDIES = {0, 1, 2, 3,4,5,6,7,8};
 
-    protected int[] TARGETS = {5, 5, 0, 0, 0,0,0,0,0,0,0,0,0,0};
+    protected int[] TARGETS = {5, 5, 0, 0, 0, 0,0,0,0};
     // ===============================================
 
     GridLayout grid;
@@ -93,12 +93,7 @@ public abstract class BaseLevelActivity extends AppCompatActivity {
             R.drawable.e6,
             R.drawable.e7,
             R.drawable.e8,
-            R.drawable.e9,
-            R.drawable.e10,
-            R.drawable.e11,
-            R.drawable.e12,
-            R.drawable.e13,
-            R.drawable.e14
+            R.drawable.e9
 
     };
     protected int[] ICE = {
@@ -111,7 +106,11 @@ public abstract class BaseLevelActivity extends AppCompatActivity {
             30, // Blue
             20, // Green
             10, // Yellow
-            0   // Purple (0 = never spawn)
+            0,
+            0,
+            0,
+            0,
+            0// Purple (0 = never spawn)
     };
     // ================= TIMER =================
     Handler timerHandler = new Handler();

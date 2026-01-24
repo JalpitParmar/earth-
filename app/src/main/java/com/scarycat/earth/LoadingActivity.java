@@ -112,11 +112,11 @@ public class LoadingActivity extends AppCompatActivity {
             if (!prefs.getBoolean("initialized", false)) {
                 prefs1.putInt("coins", 1000); // Give starting coins
                 prefs1.putInt("hearts", 5);
-                prefs1.putInt("goldbars", 0);
-                prefs1.putInt("booster_hammer_count", 0);
-                prefs1.putInt("booster_bomb_count", 0);
-                prefs1.putInt("booster_swap_count", 0);
-                prefs1.putInt("booster_color_bomb_count", 0);
+                prefs1.putInt("goldbars", 2);
+                prefs1.putInt("booster_hammer_count", 3);
+                prefs1.putInt("booster_bomb_count", 3);
+                prefs1.putInt("booster_swap_count", 2);
+                prefs1.putInt("booster_color_bomb_count", 1);
                 prefs1.putBoolean("initialized", true);
             }
 

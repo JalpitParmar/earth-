@@ -58,7 +58,7 @@ public class Shop extends AppCompatActivity {
         btnBuySwap.setOnClickListener(v -> buyBooster("swap", 200));
         btnBuyColorBomb.setOnClickListener(v -> buyBooster("color_bomb", 300));
         btnBuySwapColorBombCombo.setOnClickListener(v -> buyComboBoosters(new String[]{"swap", "color_bomb"}, 600));
-        btnBuyHeart.setOnClickListener(v -> buyHeart(500, 1));
+        btnBuyHeart.setOnClickListener(v -> buyHeart(1, 1));
         btnAddCoins.setOnClickListener(v -> addCoins(1000)); // free coins button
 
 
@@ -99,13 +99,14 @@ public class Shop extends AppCompatActivity {
             for (String boosterId : boosterIds) {
                 int count = prefs.getInt("booster_" + boosterId + "_count", 0);
                 prefs.putInt("booster_" + boosterId + "_count", count + 1);
+                updateCurrencyDisplay();
             }
             Toast.makeText(this, "Purchased combo boosters", Toast.LENGTH_SHORT).show();
         }
     }
 
     private void buyHeart(int price, int amount) {
-        if (spendCoins(price)) {
+        if (spendgoldbar(price)) {
             int hearts = prefs.getInt("hearts", 0);
             prefs.putInt("hearts", hearts + amount);
             updateCurrencyDisplay();
@@ -114,9 +115,21 @@ public class Shop extends AppCompatActivity {
     }
 
     private void addCoins(int amount) {
-        int coins = prefs.getInt("coins", 0);
-        prefs.putInt("coins", coins + amount);
-        updateCurrencyDisplay();
-        Toast.makeText(this, amount + " coins added!", Toast.LENGTH_SHORT).show();
+        if(spendgoldbar(1)){
+            int coins = prefs.getInt("coins", 0);
+            prefs.putInt("coins", coins + amount);
+            updateCurrencyDisplay();
+            Toast.makeText(this, amount + " coins added!", Toast.LENGTH_SHORT).show();
+        }
+    }
+    private boolean spendgoldbar(int amount) {
+        int gold = prefs.getInt("goldbars", 0);
+        if (gold >= amount) {
+            prefs.putInt("goldbars", gold - amount);
+            updateCurrencyDisplay();
+            return true;
+        }
+        Toast.makeText(this, "Not enough gold bars", Toast.LENGTH_SHORT).show();
+        return false;
     }
 }

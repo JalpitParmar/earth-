@@ -12,18 +12,18 @@ public class Level33 extends BlockerLevelBaseActivity {
         LEVEL_NUMBER = 33;
         ROWS = 9;
         COLS = 9;
-        MOVES = 17;
-        TIME_LEFT = 65;
+        MOVES = 20;
+        TIME_LEFT = 70;
         HAS_BLOCKERS = true;
         ICE = new int[] {
                 R.drawable.ice_1,
                 R.drawable.ice_2,
                 R.drawable.ice_3
         };
-        ALLOWED_CANDIES = new int[]{0,1,2,3,4,5,6,7};
-        SPAWN_RATE =new int[]{0,19,18,16,15,12,10,10};
-        star3 = 1350;
-        star2 = 850;
+        ALLOWED_CANDIES = new int[]{0,1,2,3,4,5,6,7,8};
+        SPAWN_RATE =new int[]{0,19,18,16,15,12,10,10,0};
+        star3 = 1000;
+        star2 = 800;
         super.onCreate(savedInstanceState);
     }
 
@@ -62,7 +62,7 @@ public class Level33 extends BlockerLevelBaseActivity {
                 {0,0,0,0,0,0,0,0,0},
                 {0,0,0,0,0,0,0,0,0},
                 {0,0,0,0,0,0,0,0,0},
-                {0,3,3,3,3,3,3,3,0}
+                {0,0,0,3,3,3,0,0,0}
         };
 
         for (int r = 0; r < ROWS; r++) {

@@ -20,9 +20,9 @@ public class Level26 extends BlockerLevelBaseActivity {
                 R.drawable.ice_2,
                 R.drawable.ice_3
         };
-        ALLOWED_CANDIES = new int[]{0,1,2,3,4,5,6};
-        SPAWN_RATE =new int[]{21,21,18,16,10,9,5};
-        star3 = 1200;
+        ALLOWED_CANDIES = new int[]{0,1,2,3,4,5,6,7,8};
+        SPAWN_RATE =new int[]{21,21,18,16,10,9,5,0,0};
+        star3 = 1000;
         star2 = 750;
         super.onCreate(savedInstanceState);
     }
@@ -61,8 +61,8 @@ public class Level26 extends BlockerLevelBaseActivity {
                 {0,0,0,0,0,0,0,0,0},
                 {0,0,0,0,0,0,0,0,0},
                 {0,0,0,0,0,0,0,0,0},
-                {0,0,3,3,3,3,0,0,0},
-                {0,0,3,3,3,3,0,0,0}
+                {0,0,0,0,2,0,0,0,0},
+                {0,0,3,3,3,3,3,0,0}
         };
 
         for (int r = 0; r < ROWS; r++) {

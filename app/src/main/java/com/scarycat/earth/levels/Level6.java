@@ -12,11 +12,11 @@ public class Level6 extends BaseLevelActivity {
         LEVEL_NUMBER = 6;
         ROWS = 7;
         COLS = 7;
-        MOVES = 18;
-        TIME_LEFT = 75;
-        ALLOWED_CANDIES = new int[]{0,1,2,3};
-        TARGETS = new int[]{8,8,0,0,0};
-        SPAWN_RATE =new int[]{25,25,20,15,15};
+        MOVES = 25;
+        TIME_LEFT = 90;
+        ALLOWED_CANDIES = new int[]{0,1,2,3,4,5,6,7,8};
+        TARGETS = new int[]{8,8,0,0,0,0,0,0,0};
+        SPAWN_RATE =new int[]{25,25,20,15,15,0,0,0,0};
         star3 = 700;
         star2 = 450;
         super.onCreate(savedInstanceState);

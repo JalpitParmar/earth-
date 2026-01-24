@@ -12,7 +12,7 @@ public class Level39 extends BlockerLevelBaseActivity {
         LEVEL_NUMBER = 39;
         ROWS = 9;
         COLS = 9;
-        MOVES = 15;
+        MOVES = 35;
         TIME_LEFT = 60;
         HAS_BLOCKERS = true;
         ICE = new int[] {
@@ -20,10 +20,10 @@ public class Level39 extends BlockerLevelBaseActivity {
                 R.drawable.ice_2,
                 R.drawable.ice_3
         };
-        ALLOWED_CANDIES = new int[]{0,1,2,3,4,5,6,7};
-        SPAWN_RATE =new int[]{16,16,15,16,12,13,12};
-        star3 = 1550;
-        star2 = 950;
+        ALLOWED_CANDIES = new int[]{0,1,2,3,4,5,6,7,8};
+        SPAWN_RATE =new int[]{0,16,16,15,16,12,13,12,0};
+        star3 = 1200;
+        star2 = 900;
         super.onCreate(savedInstanceState);
     }
 

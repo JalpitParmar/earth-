@@ -12,17 +12,17 @@ public class Level19 extends BlockerLevelBaseActivity {
         LEVEL_NUMBER = 19;
         ROWS = 9;
         COLS = 9;
-        MOVES = 18;
-        TIME_LEFT = 75;
+        MOVES = 22;
+        TIME_LEFT = 80;
         HAS_BLOCKERS = true;
         ICE = new int[]{
                 R.drawable.ice_1,
                 R.drawable.ice_2,
                 R.drawable.ice_3
         };
-        ALLOWED_CANDIES = new int[]{0,1,2,3,4,5};
-        SPAWN_RATE =new int[]{25,25,20,15,15};
-        star3 = 1200;
+        ALLOWED_CANDIES = new int[]{0,1,2,3,4,5,6,7,8};
+        SPAWN_RATE =new int[]{25,25,20,15,10,5,0,0,0};
+        star3 = 900;
         star2 = 750;
         super.onCreate(savedInstanceState);
     }
@@ -60,9 +60,9 @@ public class Level19 extends BlockerLevelBaseActivity {
                 {0,0,0,0,0,0,0,0,0},
                 {0,0,0,0,0,0,0,0,0},
                 {0,0,0,0,0,0,0,0,0},
-                {0,0,0,0,3,0,0,0,0},
-                {0,0,0,3,3,3,0,0,0},
-                {0,0,3,3,3,3,3,0,0}
+                {0,0,0,0,1,0,0,0,0},
+                {0,0,0,2,2,2,0,0,0},
+                {0,0,0,0,0,0,0,0,0}
         };
 
         for (int r = 0; r < ROWS; r++) {

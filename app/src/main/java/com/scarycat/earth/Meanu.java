@@ -41,7 +41,7 @@ public class Meanu extends AppCompatActivity {
     private PreferencesManager prefs;
 
     private int page = 0;
-    private static final int LEVELS_PER_PAGE = 5;
+    private static final int LEVELS_PER_PAGE = 10;
 
     private int[] backgrounds = {
             R.drawable.level_bg_1,
