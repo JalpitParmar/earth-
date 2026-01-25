@@ -1,9 +1,15 @@
 package com.scarycat.earth;
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.View;
+import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.RotateAnimation;
 import android.widget.Button;
@@ -161,7 +167,8 @@ public class spin extends AppCompatActivity {
                 String reward = getReward();
                 applyReward(reward);
 
-                tvResult.setText("You won: " + reward);
+//                tvResult.setText("You won: " + reward);
+                showRewardPopup(reward);
                 prefs.putString(PREF_LAST_SPIN_DATE, getToday());
 
                 btnSpin.setEnabled(true);
@@ -280,6 +287,31 @@ public class spin extends AppCompatActivity {
                     }
                 }
         );
+    }
+    private void showRewardPopup(String reward) {
+
+        Dialog dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.dialog_spin_reward);
+        dialog.setCancelable(false);
+
+        TextView tv = dialog.findViewById(R.id.tvReward);
+        tv.setText("🎁 You won: " + reward);
+
+        if (dialog.getWindow() != null) {
+            dialog.getWindow().setBackgroundDrawable(
+                    new ColorDrawable(Color.TRANSPARENT)
+            );
+        }
+
+        dialog.show();
+
+        // Auto dismiss after 2 seconds
+        new Handler(Looper.getMainLooper()).postDelayed(() -> {
+            if (dialog.isShowing()) {
+                dialog.dismiss();
+            }
+        }, 2000);
     }
 
 }

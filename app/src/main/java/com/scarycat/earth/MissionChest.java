@@ -1,8 +1,14 @@
 package com.scarycat.earth;
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -97,7 +103,8 @@ public class MissionChest extends AppCompatActivity {
                 imgChest.setImageResource(R.drawable.bronze_chest_open);
                 imgname.setImageResource(R.drawable.bronze_name);
             }
-            tvReward.setText("🎁 " + reward.amount + " " + reward.type);
+            showRewardPopup(reward.type);
+//            tvReward.setText("🎁 " + reward.amount + " " + reward.type);
             applyReward(reward.type,reward.amount);
             mission.consumeChest();
             btnOpenChest.setEnabled(false);
@@ -221,5 +228,30 @@ public class MissionChest extends AppCompatActivity {
 
             containerProbabilities.addView(row);
         }
+    }
+    private void showRewardPopup(String reward) {
+
+        Dialog dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.dialog_spin_reward);
+        dialog.setCancelable(false);
+
+        TextView tv = dialog.findViewById(R.id.tvReward);
+        tv.setText("🎁 You won: " + reward);
+
+        if (dialog.getWindow() != null) {
+            dialog.getWindow().setBackgroundDrawable(
+                    new ColorDrawable(Color.TRANSPARENT)
+            );
+        }
+
+        dialog.show();
+
+        // Auto dismiss after 2 seconds
+        new Handler(Looper.getMainLooper()).postDelayed(() -> {
+            if (dialog.isShowing()) {
+                dialog.dismiss();
+            }
+        }, 2000);
     }
 }

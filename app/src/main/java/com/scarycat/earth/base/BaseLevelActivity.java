@@ -351,7 +351,6 @@ public abstract class BaseLevelActivity extends AppCompatActivity {
         return ALLOWED_CANDIES[0]; // fallback
     }
 
-
     // ---------------- SWIPE ----------------
     boolean swipe(MotionEvent e, int r, int c) {
 
@@ -464,7 +463,6 @@ public abstract class BaseLevelActivity extends AppCompatActivity {
             startHintTimer();
         }
     }
-
 
     void updateCombo() {
         if (comboCount <= 1) return;
