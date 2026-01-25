@@ -1,15 +1,20 @@
 package com.scarycat.earth;
 
 import android.annotation.SuppressLint;
+import android.media.SoundPool;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.scarycat.earth.utils.MusicManager;
 import com.scarycat.earth.utils.PreferencesManager;
 
 public class Shop extends AppCompatActivity {
+    SoundPool soundPool;
+    int tapSound,coinsound;
     private TextView tvCoins, tvHearts, tvGoldBars,tvhammer,tvbomb,tvswap,tvcolor_bomb;
     private ImageButton btnBuyHammer, btnBuyBomb, btnBuyBombHammerCombo, btnBuySwap,
             btnBuyColorBomb, btnBuySwapColorBombCombo, btnBuyHeart, btnAddCoins;
@@ -28,6 +33,12 @@ public class Shop extends AppCompatActivity {
                         | View.SYSTEM_UI_FLAG_FULLSCREEN
                         | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
         );
+        soundPool = new SoundPool.Builder()
+                .setMaxStreams(5)
+                .build();
+
+        tapSound = soundPool.load(this, R.raw.btn, 1);
+        coinsound =soundPool.load(this,R.raw.moneyspend,1);
 
         prefs = new PreferencesManager(this);
 
@@ -52,16 +63,240 @@ public class Shop extends AppCompatActivity {
         updateCurrencyDisplay();
 
         // Button click listeners
-        btnBuyHammer.setOnClickListener(v -> buyBooster("hammer", 100));
-        btnBuyBomb.setOnClickListener(v -> buyBooster("bomb", 200));
-        btnBuyBombHammerCombo.setOnClickListener(v -> buyComboBoosters(new String[]{"bomb", "hammer"}, 400));
-        btnBuySwap.setOnClickListener(v -> buyBooster("swap", 200));
-        btnBuyColorBomb.setOnClickListener(v -> buyBooster("color_bomb", 300));
-        btnBuySwapColorBombCombo.setOnClickListener(v -> buyComboBoosters(new String[]{"swap", "color_bomb"}, 600));
-        btnBuyHeart.setOnClickListener(v -> buyHeart(1, 1));
-        btnAddCoins.setOnClickListener(v -> addCoins(1000)); // free coins button
+        btnBuyHammer.setOnClickListener(v ->{
+            if(prefs.getBoolean("sfx_on", true)){
+                float val = prefs.getInt("sfx_volume", 80);
+                soundPool.play(tapSound, val, val, 1, 0, 1f);
+                soundPool.play(coinsound, val, val, 1, 0, 1f);
+            }
+            v.animate()
+                    .scaleX(0.8f)
+                    .scaleY(0.8f)
+                    .rotationBy(-5f)
+                    .setDuration(80)
+                    .withEndAction(() -> v.animate()
+                            .scaleX(1.1f)
+                            .scaleY(1.1f)
+                            .rotationBy(10f)
+                            .setDuration(120)
+                            .withEndAction(() -> v.animate()
+                                    .scaleX(1f)
+                                    .scaleY(1f)
+                                    .rotation(0f)
+                                    .setDuration(80)
+                                    .withEndAction(() -> {
+                                        buyBooster("hammer", 100);
+                                    })
+                            )
+                    );
 
+        });
 
+        btnBuyBomb.setOnClickListener(v -> {
+            if(prefs.getBoolean("sfx_on", true)){
+                float val = prefs.getInt("sfx_volume", 80);
+                soundPool.play(tapSound, val, val, 1, 0, 1f);
+                soundPool.play(coinsound, val, val, 1, 0, 1f);
+            }
+            v.animate()
+                    .scaleX(0.8f)
+                    .scaleY(0.8f)
+                    .rotationBy(-5f)
+                    .setDuration(80)
+                    .withEndAction(() -> v.animate()
+                            .scaleX(1.1f)
+                            .scaleY(1.1f)
+                            .rotationBy(10f)
+                            .setDuration(120)
+                            .withEndAction(() -> v.animate()
+                                    .scaleX(1f)
+                                    .scaleY(1f)
+                                    .rotation(0f)
+                                    .setDuration(80)
+                                    .withEndAction(() -> {
+                                        buyBooster("bomb", 200);
+                                    })
+                            )
+                    );
+
+        });
+
+        btnBuyBombHammerCombo.setOnClickListener(v ->{
+            if(prefs.getBoolean("sfx_on", true)){
+                float val = prefs.getInt("sfx_volume", 80);
+                soundPool.play(tapSound, val, val, 1, 0, 1f);
+                soundPool.play(coinsound, val, val, 1, 0, 1f);
+            }
+            v.animate()
+                    .scaleX(0.8f)
+                    .scaleY(0.8f)
+                    .rotationBy(-5f)
+                    .setDuration(80)
+                    .withEndAction(() -> v.animate()
+                            .scaleX(1.1f)
+                            .scaleY(1.1f)
+                            .rotationBy(10f)
+                            .setDuration(120)
+                            .withEndAction(() -> v.animate()
+                                    .scaleX(1f)
+                                    .scaleY(1f)
+                                    .rotation(0f)
+                                    .setDuration(80)
+                                    .withEndAction(() -> {
+                                        buyComboBoosters(new String[]{"bomb", "hammer"}, 400);
+                                    })
+                            )
+                    );
+
+        });
+
+        btnBuySwap.setOnClickListener(v ->{
+            if(prefs.getBoolean("sfx_on", true)){
+                float val = prefs.getInt("sfx_volume", 80);
+                soundPool.play(tapSound, val, val, 1, 0, 1f);
+                soundPool.play(coinsound, val, val, 1, 0, 1f);
+            }
+            v.animate()
+                    .scaleX(0.8f)
+                    .scaleY(0.8f)
+                    .rotationBy(-5f)
+                    .setDuration(80)
+                    .withEndAction(() -> v.animate()
+                            .scaleX(1.1f)
+                            .scaleY(1.1f)
+                            .rotationBy(10f)
+                            .setDuration(120)
+                            .withEndAction(() -> v.animate()
+                                    .scaleX(1f)
+                                    .scaleY(1f)
+                                    .rotation(0f)
+                                    .setDuration(80)
+                                    .withEndAction(() -> {
+                                        buyBooster("swap", 200);
+                                    })
+                            )
+                    );
+
+        });
+
+        btnBuyColorBomb.setOnClickListener(v -> {
+            if(prefs.getBoolean("sfx_on", true)){
+                float val = prefs.getInt("sfx_volume", 80);
+                soundPool.play(tapSound, val, val, 1, 0, 1f);
+                soundPool.play(coinsound, val, val, 1, 0, 1f);
+            }
+            v.animate()
+                    .scaleX(0.8f)
+                    .scaleY(0.8f)
+                    .rotationBy(-5f)
+                    .setDuration(80)
+                    .withEndAction(() -> v.animate()
+                            .scaleX(1.1f)
+                            .scaleY(1.1f)
+                            .rotationBy(10f)
+                            .setDuration(120)
+                            .withEndAction(() -> v.animate()
+                                    .scaleX(1f)
+                                    .scaleY(1f)
+                                    .rotation(0f)
+                                    .setDuration(80)
+                                    .withEndAction(() -> {
+                                        buyBooster("color_bomb", 300);
+                                    })
+                            )
+                    );
+
+        });
+
+        btnBuySwapColorBombCombo.setOnClickListener(v ->{
+            if(prefs.getBoolean("sfx_on", true)){
+                float val = prefs.getInt("sfx_volume", 80);
+                soundPool.play(tapSound, val, val, 1, 0, 1f);
+                soundPool.play(coinsound, val, val, 1, 0, 1f);
+            }
+            v.animate()
+                    .scaleX(0.8f)
+                    .scaleY(0.8f)
+                    .rotationBy(-5f)
+                    .setDuration(80)
+                    .withEndAction(() -> v.animate()
+                            .scaleX(1.1f)
+                            .scaleY(1.1f)
+                            .rotationBy(10f)
+                            .setDuration(120)
+                            .withEndAction(() -> v.animate()
+                                    .scaleX(1f)
+                                    .scaleY(1f)
+                                    .rotation(0f)
+                                    .setDuration(80)
+                                    .withEndAction(() -> {
+                                        buyComboBoosters(new String[]{"swap", "color_bomb"}, 600);
+                                    })
+                            )
+                    );
+
+        });
+
+        btnBuyHeart.setOnClickListener(v ->{
+            if(prefs.getBoolean("sfx_on", true)){
+                float val = prefs.getInt("sfx_volume", 80);
+                soundPool.play(tapSound, val, val, 1, 0, 1f);
+                soundPool.play(coinsound, val, val, 1, 0, 1f);
+            }
+            v.animate()
+                    .scaleX(0.8f)
+                    .scaleY(0.8f)
+                    .rotationBy(-5f)
+                    .setDuration(80)
+                    .withEndAction(() -> v.animate()
+                            .scaleX(1.1f)
+                            .scaleY(1.1f)
+                            .rotationBy(10f)
+                            .setDuration(120)
+                            .withEndAction(() -> v.animate()
+                                    .scaleX(1f)
+                                    .scaleY(1f)
+                                    .rotation(0f)
+                                    .setDuration(80)
+                                    .withEndAction(() -> {
+                                        buyHeart(1, 1);
+                                    })
+                            )
+                    );
+
+        });
+        btnAddCoins.setOnClickListener(v ->{
+            if(prefs.getBoolean("sfx_on", true)){
+                float val = prefs.getInt("sfx_volume", 80);
+                soundPool.play(tapSound, val, val, 1, 0, 1f);
+                soundPool.play(coinsound, val, val, 1, 0, 1f);
+            }
+            v.animate()
+                    .scaleX(0.8f)
+                    .scaleY(0.8f)
+                    .rotationBy(-5f)
+                    .setDuration(80)
+                    .withEndAction(() -> v.animate()
+                            .scaleX(1.1f)
+                            .scaleY(1.1f)
+                            .rotationBy(10f)
+                            .setDuration(120)
+                            .withEndAction(() -> v.animate()
+                                    .scaleX(1f)
+                                    .scaleY(1f)
+                                    .rotation(0f)
+                                    .setDuration(80)
+                                    .withEndAction(() -> {
+                                        addCoins(1000);
+                                    })
+                            )
+                    );
+
+        });
+
+        if(!prefs.getBoolean("music_on", true)){
+            MusicManager.pause();
+        }
     }
 
     private void updateCurrencyDisplay() {
@@ -131,5 +366,13 @@ public class Shop extends AppCompatActivity {
         }
         Toast.makeText(this, "Not enough gold bars", Toast.LENGTH_SHORT).show();
         return false;
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (soundPool != null) {
+            soundPool.release();
+            soundPool = null;
+        }
     }
 }

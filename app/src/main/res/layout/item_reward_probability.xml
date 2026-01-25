@@ -15,6 +15,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
+            android:fontFamily="@font/titan_one"
             android:id="@+id/tvRewardName"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -22,6 +23,7 @@
             android:textSize="14sp" />
 
         <TextView
+            android:fontFamily="@font/titan_one"
             android:id="@+id/tvRewardPercent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

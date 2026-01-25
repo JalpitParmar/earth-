@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
+import android.media.SoundPool;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -21,6 +22,7 @@ import android.widget.FrameLayout;
 import android.widget.GridLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import androidx.activity.EdgeToEdge;
@@ -49,12 +51,16 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.LoadAdError;
 import com.google.android.gms.ads.rewarded.RewardedAd;
 import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback;
+import com.scarycat.earth.utils.PreferencesManager;
 
 import java.util.Random;
 
 public abstract class BaseLevelActivity extends AppCompatActivity {
 
 
+    SoundPool soundPool;
+    int combo1,combo2,combo3,combo4;
+    int tapSound,winsound,lostsound,swapfail,hammersound,boomsound,colorboomsound,swapallsound,swapesound,destroy3sound,destroy4sound,destroy5sound;
     // ================= LEVEL CONFIG =================
     protected int LEVEL_NUMBER = 1;
     boolean levelFinished = false;
@@ -164,6 +170,9 @@ public abstract class BaseLevelActivity extends AppCompatActivity {
 
     protected int fixedh = 25;
     protected int fixedw = 25;
+    private PreferencesManager prefs;
+
+    LinearLayout bgforlevel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -177,6 +186,27 @@ public abstract class BaseLevelActivity extends AppCompatActivity {
                         | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
         );
 
+        soundPool = new SoundPool.Builder()
+                .setMaxStreams(5)
+                .build();
+
+        tapSound = soundPool.load(this, R.raw.btn, 1);
+        winsound = soundPool.load(this,R.raw.win,1);
+        lostsound = soundPool.load(this,R.raw.lost,1);
+        swapfail = soundPool.load(this,R.raw.swapfail,1);
+        hammersound = soundPool.load(this,R.raw.hammer,1);
+        boomsound = soundPool.load(this,R.raw.boom,1);
+        colorboomsound = soundPool.load(this,R.raw.colorboom,1);
+        swapallsound = soundPool.load(this,R.raw.swapall,1);
+        swapesound = soundPool.load(this,R.raw.swap,1);
+        destroy3sound = soundPool.load(this,R.raw.destroy3,1);
+        destroy4sound = soundPool.load(this,R.raw.destroy4,1);
+        destroy5sound = soundPool.load(this,R.raw.destroy5,1);
+        combo1 = soundPool.load(this,R.raw.combo1,1);
+        combo2 = soundPool.load(this,R.raw.combo2,1);
+        combo3 = soundPool.load(this,R.raw.combo3,1);
+        combo4 = soundPool.load(this,R.raw.combo4,1);
+
         grid = findViewById(R.id.gridLayout);
         txtLevel = findViewById(R.id.txtLevel);
         txtMoves = findViewById(R.id.txtMoves);
@@ -184,10 +214,10 @@ public abstract class BaseLevelActivity extends AppCompatActivity {
         txtScore = findViewById(R.id.txtScore);
         txtTime = findViewById(R.id.txtTime);
         btnPause = findViewById(R.id.btnPause);
-
+        prefs = new PreferencesManager(this);
         txtCombo = findViewById(R.id.txtCombo);
         progressTargets = findViewById(R.id.progressTargets);
-
+        bgforlevel = findViewById(R.id.bgforlevel);
         btnHammer = findViewById(R.id.btnHammer);
         btnShuffle = findViewById(R.id.btnShuffle);
         btnBomb = findViewById(R.id.btnBomb);
@@ -206,7 +236,13 @@ public abstract class BaseLevelActivity extends AppCompatActivity {
         updatebossterui();
 
 
-        btnPause.setOnClickListener(v1 -> togglePause());
+        btnPause.setOnClickListener(v1 ->{
+            if(prefs.getBoolean("sfx_on", true)){
+                float val = prefs.getInt("sfx_volume", 80);
+                soundPool.play(tapSound, val, val, 1, 0, 1f);
+            }
+            togglePause();
+        });
 
         txtLevel.setText(""+ LEVEL_NUMBER);
         txtMoves.setText(""+ MOVES);
@@ -220,16 +256,28 @@ public abstract class BaseLevelActivity extends AppCompatActivity {
         //            txtLevel.setText("Level " + LEVEL_NUMBER);
 
         updateTargetText();
+
         btnHammer.setOnClickListener(v -> {
             if (BoosterManager.get(this, BoosterType.HAMMER) > 0) {
+                soundPool = new SoundPool.Builder()
+                        .setMaxStreams(5)
+                        .build();
+
+                tapSound = soundPool.load(this, R.raw.btn, 1);
+
                 toggleBooster(BoosterType.HAMMER);
                 updatebossterui();
             } else {
                 Toast.makeText(this, "No Hammer boosters!", Toast.LENGTH_SHORT).show();
             }
         });
+
         btnHammer.setOnClickListener(v -> {
             if (BoosterManager.get(this, BoosterType.HAMMER) > 0) {
+                if(prefs.getBoolean("sfx_on", true)){
+                    float val = prefs.getInt("sfx_volume", 80);
+                    soundPool.play(tapSound, val, val, 1, 0, 1f);
+                }
                 toggleBooster(BoosterType.HAMMER);
                 updatebossterui();
             } else {
@@ -239,6 +287,10 @@ public abstract class BaseLevelActivity extends AppCompatActivity {
 
         btnBomb.setOnClickListener(v -> {
             if (BoosterManager.get(this, BoosterType.BOMB) > 0) {
+                if(prefs.getBoolean("sfx_on", true)){
+                    float val = prefs.getInt("sfx_volume", 80);
+                    soundPool.play(tapSound, val, val, 1, 0, 1f);
+                }
                 toggleBooster(BoosterType.BOMB);
                 updatebossterui();
             } else {
@@ -247,7 +299,12 @@ public abstract class BaseLevelActivity extends AppCompatActivity {
         });
 
         btnShuffle.setOnClickListener(v -> {
+
             if (BoosterManager.get(this, BoosterType.SHUFFLE) > 0) {
+                if(prefs.getBoolean("sfx_on", true)){
+                    float val = prefs.getInt("sfx_volume", 80);
+                    soundPool.play(tapSound, val, val, 1, 0, 1f);
+                }
                 toggleBooster(BoosterType.SHUFFLE);
                 updatebossterui();
             } else {
@@ -257,6 +314,10 @@ public abstract class BaseLevelActivity extends AppCompatActivity {
 
         btnColor.setOnClickListener(v -> {
             if (BoosterManager.get(this, BoosterType.COLOR_BOMB) > 0) {
+                if(prefs.getBoolean("sfx_on", true)){
+                    float val = prefs.getInt("sfx_volume", 80);
+                    soundPool.play(tapSound, val, val, 1, 0, 1f);
+                }
                 toggleBooster(BoosterType.COLOR_BOMB);
                 updatebossterui();
             } else {
@@ -279,8 +340,32 @@ public abstract class BaseLevelActivity extends AppCompatActivity {
         startTimer();
         loadRewardedAd();
 
-    }
+        if (LEVEL_NUMBER >= 1 && LEVEL_NUMBER <= 10) {
+            bgforlevel.setBackgroundResource(R.drawable.level_bg_1);
 
+        } else if (LEVEL_NUMBER >= 11 && LEVEL_NUMBER <= 20) {
+            bgforlevel.setBackgroundResource(R.drawable.level_bg_2);
+
+        } else if (LEVEL_NUMBER >= 21 && LEVEL_NUMBER <= 30) {
+            bgforlevel.setBackgroundResource(R.drawable.level_bg_3);
+
+        } else if (LEVEL_NUMBER >= 31 && LEVEL_NUMBER <= 40) {
+            bgforlevel.setBackgroundResource(R.drawable.level_bg_4);
+
+        } else if (LEVEL_NUMBER >= 41 && LEVEL_NUMBER <= 50) {
+            bgforlevel.setBackgroundResource(R.drawable.level_bg_5);
+        }
+
+
+        if(!prefs.getBoolean("music_on", true)){
+            MusicManager.pause();
+        }
+    }
+    @Override
+    protected void onPause() {
+        togglePause();
+        super.onPause();
+    }
     @Override
     protected void onResume() {
         super.onResume();
@@ -294,7 +379,10 @@ public abstract class BaseLevelActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-
+        if (soundPool != null) {
+            soundPool.release();
+            soundPool = null;
+        }
         handler.removeCallbacksAndMessages(null);
         hintHandler.removeCallbacksAndMessages(null);
         timerHandler.removeCallbacksAndMessages(null);
@@ -411,8 +499,16 @@ public abstract class BaseLevelActivity extends AppCompatActivity {
                 processBoard();
                 checkGameOver();
                 if (MOVES <= 0) checkGameOver();
+                if(prefs.getBoolean("sfx_on", true)){
+                    float val = prefs.getInt("sfx_volume", 80);
+                    soundPool.play(swapesound, val, val, 1, 0, 1f);
+                }
             } else {
                 swap(r1, c1, r2, c2);
+                if(prefs.getBoolean("sfx_on", true)){
+                    float val = prefs.getInt("sfx_volume", 80);
+                    soundPool.play(swapfail, val, val, 1, 0, 1f);
+                }
             }
         }, 150);
         hintActive = false;
@@ -471,18 +567,34 @@ public abstract class BaseLevelActivity extends AppCompatActivity {
             case 2:
                 comboMultiplier = 1.5f;
                 showComboText("Sweet!", "COMBO x1.5");
+                if(prefs.getBoolean("sfx_on", true)){
+                    float val = prefs.getInt("sfx_volume", 80);
+                    soundPool.play(combo1, val+10, val+10, 1, 0, 1f);
+                }
                 break;
             case 3:
                 comboMultiplier = 2f;
                 showComboText("Awesome!", "COMBO x2");
+                if(prefs.getBoolean("sfx_on", true)){
+                    float val = prefs.getInt("sfx_volume", 80);
+                    soundPool.play(combo2, val+10, val+10, 1, 0, 1f);
+                }
                 break;
             case 4:
                 comboMultiplier = 2.5f;
                 showComboText("Unstoppable!", "COMBO x2.5");
+                if(prefs.getBoolean("sfx_on", true)){
+                    float val = prefs.getInt("sfx_volume", 80);
+                    soundPool.play(combo3, val+10, val+10, 1, 0, 1f);
+                }
                 break;
             default:
                 comboMultiplier = 3f;
                 showComboText("Savage!", "COMBO x3");
+                if(prefs.getBoolean("sfx_on", true)){
+                    float val = prefs.getInt("sfx_volume", 80);
+                    soundPool.play(combo4, val+10, val+10, 1, 0, 1f);
+                }
                 break;
         }
     }
@@ -545,6 +657,10 @@ public abstract class BaseLevelActivity extends AppCompatActivity {
             screenShake();
             clearRow(r);
             clearColumn(c);
+            if(prefs.getBoolean("sfx_on", true)){
+                float val = prefs.getInt("sfx_volume", 80);
+                soundPool.play(destroy4sound, val, val, 1, 0, 1f);
+            }
             return true;
         }
 
@@ -553,13 +669,20 @@ public abstract class BaseLevelActivity extends AppCompatActivity {
             screenShake();
             screenShake();
             clear4x4(r, c);
+            if(prefs.getBoolean("sfx_on", true)){
+                float val = prefs.getInt("sfx_volume", 80);
+                soundPool.play(destroy5sound, val, val, 1, 0, 1f);
+            }
             return true;
         }
 
         for (int i = 0; i < count; i++) {
             mark(horizontal ? r : r - i, horizontal ? c - i : c);
         }
-
+        if(prefs.getBoolean("sfx_on", true)){
+            float val = prefs.getInt("sfx_volume", 80);
+            soundPool.play(destroy3sound, val, val, 1, 0, 1f);
+        }
         return true;
     }
 
@@ -781,6 +904,11 @@ public abstract class BaseLevelActivity extends AppCompatActivity {
 
 
     void showLevelCompleteDialog() {
+        if(prefs.getBoolean("sfx_on", true)){
+            float val = prefs.getInt("sfx_volume", 80);
+            soundPool.play(winsound, val, val, 1, 0, 1f);
+        }
+
         isPaused = !isPaused;
         new MissionChestManager(this).onLevelWon();
         score += MOVES * 10;
@@ -822,12 +950,20 @@ public abstract class BaseLevelActivity extends AppCompatActivity {
         if (starsEarned >= 3) star3.setImageResource(R.drawable.star_filled);
 
         btnNext.setOnClickListener(v -> {
+            if(prefs.getBoolean("sfx_on", true)){
+                float val = prefs.getInt("sfx_volume", 80);
+                soundPool.play(tapSound, val, val, 1, 0, 1f);
+            }
             dialog.dismiss();
             startActivity(LevelRouter.getNextLevel(this, LEVEL_NUMBER));
             finish();
         });
 
         btnHome.setOnClickListener(v -> {
+            if(prefs.getBoolean("sfx_on", true)){
+                float val = prefs.getInt("sfx_volume", 80);
+                soundPool.play(tapSound, val, val, 1, 0, 1f);
+            }
             dialog.dismiss();
             startActivity(new Intent(this, Meanu.class));
             finish();
@@ -838,6 +974,11 @@ public abstract class BaseLevelActivity extends AppCompatActivity {
     }
 
     void showGameOverDialog() {
+        if(prefs.getBoolean("sfx_on", true)){
+            float val = prefs.getInt("sfx_volume", 80);
+            soundPool.play(lostsound, val, val, 1, 0, 1f);
+        }
+
 
         pauseTimer();
         Dialog dialog = new Dialog(this);
@@ -858,7 +999,10 @@ public abstract class BaseLevelActivity extends AppCompatActivity {
 
         // ---------------- RETRY ----------------
         btnRetry.setOnClickListener(v -> {
-
+            if(prefs.getBoolean("sfx_on", true)){
+                float val = prefs.getInt("sfx_volume", 80);
+                soundPool.play(tapSound, val, val, 1, 0, 1f);
+            }
             int hearts = heartsManager.getHearts();
             if (hearts <= 0) {
                 Toast.makeText(this,
@@ -875,7 +1019,10 @@ public abstract class BaseLevelActivity extends AppCompatActivity {
 
         // ---------------- WATCH AD CONTINUE ----------------
         btnWatchAd.setOnClickListener(v -> {
-
+            if(prefs.getBoolean("sfx_on", true)){
+                float val = prefs.getInt("sfx_volume", 80);
+                soundPool.play(tapSound, val, val, 1, 0, 1f);
+            }
             if (rewardedAd == null) {
                 Toast.makeText(this,
                         "Ad not ready yet",
@@ -903,6 +1050,10 @@ public abstract class BaseLevelActivity extends AppCompatActivity {
 
         // ---------------- HOME ----------------
         btnHome.setOnClickListener(v -> {
+            if(prefs.getBoolean("sfx_on", true)){
+                float val = prefs.getInt("sfx_volume", 80);
+                soundPool.play(tapSound, val, val, 1, 0, 1f);
+            }
             int hearts = heartsManager.getHearts();
             if (hearts >= 0) {
                 heartsManager.setHearts(hearts - 1);
@@ -1091,10 +1242,18 @@ public abstract class BaseLevelActivity extends AppCompatActivity {
         d.setCancelable(false);
 
         d.findViewById(R.id.btnResume).setOnClickListener(v -> {
+            if(prefs.getBoolean("sfx_on", true)){
+                float val = prefs.getInt("sfx_volume", 80);
+                soundPool.play(tapSound, val, val, 1, 0, 1f);
+            }
             isPaused = false;
             d.dismiss();
         });
         d.findViewById(R.id.btnRetry).setOnClickListener(view -> {
+            if(prefs.getBoolean("sfx_on", true)){
+                float val = prefs.getInt("sfx_volume", 80);
+                soundPool.play(tapSound, val, val, 1, 0, 1f);
+            }
             HeartsManager heartsManager = new HeartsManager(this);
             int hearts_ = heartsManager.getHearts();
 
@@ -1108,6 +1267,10 @@ public abstract class BaseLevelActivity extends AppCompatActivity {
 
         });
         d.findViewById(R.id.btnHome).setOnClickListener(v -> {
+            if(prefs.getBoolean("sfx_on", true)){
+                float val = prefs.getInt("sfx_volume", 80);
+                soundPool.play(tapSound, val, val, 1, 0, 1f);
+            }
             startActivity(new Intent(this, Meanu.class));
             finish();
         });
@@ -1680,16 +1843,22 @@ public abstract class BaseLevelActivity extends AppCompatActivity {
                 case COLOR_BOMB:
                     destroyAllSame(board[r][c]);
                     updatebossterui();
+                    if(prefs.getBoolean("sfx_on", true)){
+                        float val = prefs.getInt("sfx_volume", 80);
+                        soundPool.play(colorboomsound, val, val, 1, 0, 1f);
+                    }
                     break;
 
                 case SHUFFLE:
                     shuffleBoardAnimated();
                     updatebossterui();
+                    if(prefs.getBoolean("sfx_on", true)){
+                        float val = prefs.getInt("sfx_volume", 80);
+                        soundPool.play(swapallsound, val, val, 1, 0, 1f);
+                    }
                     break;
             }
-
             activeBooster = BoosterType.NONE;
-
             handler.postDelayed(this::resolveBoard, 300);
         }
     }
@@ -1700,6 +1869,10 @@ public abstract class BaseLevelActivity extends AppCompatActivity {
             views[r][c].setImageDrawable(null);
             score++;
             txtScore.setText("" + score);
+        }
+        if(prefs.getBoolean("sfx_on", true)){
+            float val = prefs.getInt("sfx_volume", 80);
+            soundPool.play(hammersound, val, val, 1, 0, 1f);
         }
     }
 
@@ -1713,6 +1886,10 @@ public abstract class BaseLevelActivity extends AppCompatActivity {
                     txtScore.setText("" + score);
                 }
             }
+        }
+        if(prefs.getBoolean("sfx_on", true)){
+            float val = prefs.getInt("sfx_volume", 80);
+            soundPool.play(boomsound, val, val, 1, 0, 1f);
         }
     }
 

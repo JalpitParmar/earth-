@@ -19,7 +19,15 @@ public class MusicService extends Service {
     private final int[] playlist = {
             R.raw.music1,
             R.raw.music2,
-            R.raw.music3
+            R.raw.music3,
+            R.raw.music4,
+            R.raw.music5,
+            R.raw.music6,
+            R.raw.music7,
+            R.raw.music8,
+            R.raw.music9,
+            R.raw.music10
+
     };
 
     public static MusicService getInstance() {

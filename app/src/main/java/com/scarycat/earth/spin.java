@@ -1,10 +1,14 @@
 package com.scarycat.earth;
 
 import android.annotation.SuppressLint;
+import android.app.AlarmManager;
 import android.app.Dialog;
+import android.app.PendingIntent;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.media.SoundPool;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -20,6 +24,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.scarycat.earth.utils.DailySpinReceiver;
 import com.scarycat.earth.utils.MusicManager;
 import com.scarycat.earth.utils.PreferencesManager;
 import com.google.android.gms.ads.AdRequest;
@@ -33,6 +38,8 @@ import java.util.Locale;
 import java.util.Random;
 
 public class spin extends AppCompatActivity {
+    SoundPool soundPool;
+    int tapSound,spinsound,rewadsound;
     TextView tvGoldBars, tvHearts, tvCoins,tvhammer,tvbomb,tvswap,tvcolor_bomb;
     private ImageView imgWheel;
     private ImageButton btnSpin, btnWatchAdSpin;
@@ -58,6 +65,13 @@ public class spin extends AppCompatActivity {
                         | View.SYSTEM_UI_FLAG_FULLSCREEN
                         | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
         );
+        soundPool = new SoundPool.Builder()
+                .setMaxStreams(5)
+                .build();
+
+        tapSound = soundPool.load(this, R.raw.btn, 1);
+        spinsound = soundPool.load(this,R.raw.spin,1);
+        rewadsound = soundPool.load(this,R.raw.rewad,1);
 
         prefs = new PreferencesManager(this);
 
@@ -85,21 +99,67 @@ public class spin extends AppCompatActivity {
                         Toast.LENGTH_SHORT).show();
                 return;
             }
-            consumeSpin();
-            spinWheel();
-            updateui();
+            if(prefs.getBoolean("sfx_on", true)){
+                float val = prefs.getInt("sfx_volume", 80);
+                soundPool.play(tapSound, val, val, 1, 0, 1f);
+            }
+            v.animate()
+                    .scaleX(0.8f)
+                    .scaleY(0.8f)
+                    .rotationBy(-5f)
+                    .setDuration(80)
+                    .withEndAction(() -> v.animate()
+                            .scaleX(1.1f)
+                            .scaleY(1.1f)
+                            .rotationBy(10f)
+                            .setDuration(120)
+                            .withEndAction(() -> v.animate()
+                                    .scaleX(1f)
+                                    .scaleY(1f)
+                                    .rotation(0f)
+                                    .setDuration(80)
+                                    .withEndAction(() -> {
+                                        consumeSpin();
+                                        spinWheel();
+                                        updateui();
+                                    })
+                            )
+                    );
         });
 
         btnWatchAdSpin.setOnClickListener(v -> {
 
+
+
+            if(prefs.getBoolean("sfx_on", true)){
+                float val = prefs.getInt("sfx_volume", 80);
+                soundPool.play(tapSound, val, val, 1, 0, 1f);
+            }
             if (rewardedAd == null) {
                 Toast.makeText(this,
                         "Ad is loading, please wait…",
                         Toast.LENGTH_SHORT).show();
-                loadRewardedAd();
+                v.animate()
+                        .scaleX(0.8f)
+                        .scaleY(0.8f)
+                        .rotationBy(-5f)
+                        .setDuration(80)
+                        .withEndAction(() -> v.animate()
+                                .scaleX(1.1f)
+                                .scaleY(1.1f)
+                                .rotationBy(10f)
+                                .setDuration(120)
+                                .withEndAction(() -> v.animate()
+                                        .scaleX(1f)
+                                        .scaleY(1f)
+                                        .rotation(0f)
+                                        .setDuration(80)
+                                        .withEndAction(this::loadRewardedAd)
+                                )
+                        );
+
                 return;
             }
-
             rewardedAd.show(this, rewardItem -> {
 
                 SharedPreferences sp =
@@ -118,6 +178,10 @@ public class spin extends AppCompatActivity {
             rewardedAd = null;
             loadRewardedAd(); // preload next
         });
+
+        if(!prefs.getBoolean("music_on", true)){
+            MusicManager.pause();
+        }
     }
     void updateui(){
         tvCoins.setText(""+prefs.getInt("coins", 0));
@@ -133,7 +197,11 @@ public class spin extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         loadRewardedAd();
-        MusicManager.resume();
+        if(!prefs.getBoolean("music_on", true)){
+            MusicManager.pause();
+        }else {
+            MusicManager.resume();
+        }
     }
 
     @Override
@@ -144,7 +212,10 @@ public class spin extends AppCompatActivity {
     // ---------------- SPIN LOGIC ----------------
 
     private void spinWheel() {
-
+        if(prefs.getBoolean("sfx_on", true)){
+            float val = prefs.getInt("sfx_volume", 80);
+            soundPool.play(spinsound, val, val, 1, 0, 1f);
+        }
         btnSpin.setEnabled(false);
         tvResult.setText("");
 
@@ -249,17 +320,17 @@ public class spin extends AppCompatActivity {
         } else {
             editor.putString(PREF_LAST_SPIN_DATE, getToday());
         }
-
         editor.apply();
+        if (prefs.getBoolean("notification_on", true)) {
+            scheduleDailySpinNotification();
+        }
     }
-
     private String getToday() {
         return new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
                 .format(new Date());
     }
 
     // ---------------- ADS ----------------
-
     private void loadRewardedAd() {
 
         if (rewardedAd != null || isAdLoading) return;
@@ -289,7 +360,10 @@ public class spin extends AppCompatActivity {
         );
     }
     private void showRewardPopup(String reward) {
-
+        if(prefs.getBoolean("sfx_on", true)){
+            float val = prefs.getInt("sfx_volume", 80);
+            soundPool.play(rewadsound, val, val, 1, 0, 1f);
+        }
         Dialog dialog = new Dialog(this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.dialog_spin_reward);
@@ -297,15 +371,32 @@ public class spin extends AppCompatActivity {
 
         TextView tv = dialog.findViewById(R.id.tvReward);
         tv.setText("🎁 You won: " + reward);
+        ImageView ri = dialog.findViewById(R.id.rewardimg);
+
+        if (reward == "100 Coins") {
+            ri.setImageResource(R.drawable.rewad_coin);
+
+        } else if (reward == "Hammer") {
+            ri.setImageResource(R.drawable.hammer_rewad);
+
+        } else if (reward == "Bomb") {
+            ri.setImageResource(R.drawable.bomb_rewad);
+        } else if (reward == "Heart") {
+            ri.setImageResource(R.drawable.heart_rewad);
+        } else if (reward == "Swap") {
+            ri.setImageResource(R.drawable.swap_rewad);
+        } else if (reward == "Color Bomb") {
+            ri.setImageResource(R.drawable.colorboomb_rewad);
+        } else if (reward == "10 Gold Bars") {
+            ri.setImageResource(R.drawable.goldbar_rewad);
+        }
 
         if (dialog.getWindow() != null) {
             dialog.getWindow().setBackgroundDrawable(
                     new ColorDrawable(Color.TRANSPARENT)
             );
         }
-
         dialog.show();
-
         // Auto dismiss after 2 seconds
         new Handler(Looper.getMainLooper()).postDelayed(() -> {
             if (dialog.isShowing()) {
@@ -313,5 +404,40 @@ public class spin extends AppCompatActivity {
             }
         }, 2000);
     }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (soundPool != null) {
+            soundPool.release();
+            soundPool = null;
+        }
+    }
+    @SuppressLint("ScheduleExactAlarm")
+    private void scheduleDailySpinNotification() {
 
+        long now = System.currentTimeMillis();
+
+        // Next day (24h later)
+        long nextDay = now + 24 * 60 * 60 * 1000;
+
+        Intent intent = new Intent(this, DailySpinReceiver.class);
+
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(
+                this,
+                0,
+                intent,
+                PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE
+        );
+
+        AlarmManager alarmManager =
+                (AlarmManager) getSystemService(ALARM_SERVICE);
+
+        if (alarmManager != null) {
+            alarmManager.setExactAndAllowWhileIdle(
+                    AlarmManager.RTC_WAKEUP,
+                    nextDay,
+                    pendingIntent
+            );
+        }
+    }
 }

@@ -7,6 +7,7 @@
     android:layout_height="match_parent"
     tools:context=".levels.Level1">
     <LinearLayout
+        android:id="@+id/bgforlevel"
         android:layout_width="match_parent"
         android:orientation="vertical"
         android:layout_height="match_parent"
@@ -39,6 +40,7 @@
 
                     <TextView
                         android:layout_height="wrap_content"
+                        android:fontFamily="@font/titan_one"
                         android:id="@+id/txtLevel"
                         android:layout_width="0dp"
                         android:layout_weight="1"
@@ -49,6 +51,7 @@
                         android:textSize="14sp"/>
 
                     <TextView
+                        android:fontFamily="@font/titan_one"
                         android:layout_height="wrap_content"
                         android:id="@+id/txtScore"
                         android:layout_width="0dp"
@@ -58,6 +61,7 @@
                         android:textColor="@color/white"/>
 
                     <TextView
+                        android:fontFamily="@font/titan_one"
                         android:layout_height="wrap_content"
                         android:id="@+id/txtTarget"
                         android:layout_width="0dp"
@@ -68,6 +72,7 @@
                         android:textSize="8sp"/>
 
                     <TextView
+                        android:fontFamily="@font/titan_one"
                         android:layout_height="wrap_content"
                         android:id="@+id/txtMoves"
                         android:layout_width="0dp"
@@ -78,6 +83,7 @@
                         android:textStyle="bold"/>
 
                     <TextView
+                        android:fontFamily="@font/titan_one"
                         android:layout_height="wrap_content"
                         android:id="@+id/txtTime"
                         android:layout_width="0dp"
@@ -151,13 +157,18 @@
                 android:orientation="vertical"
                 android:layout_alignParentBottom="true">
                 <TextView
+                    android:shadowColor="#3E2723"
+                    android:shadowRadius="10"
+                    android:shadowDy="0"
+                    android:shadowDx="0"
+                    android:fontFamily="@font/titan_one"
+                    android:textColor="#d7ad60"
                     android:id="@+id/txtCombo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text=""
                     android:textSize="26sp"
                     android:textStyle="bold"
-                    android:textColor="@android:color/white"
                     android:layout_gravity="center"
                     android:visibility="gone"/>
 
@@ -184,6 +195,7 @@
                             android:src="@drawable/ic_booster_hammer" />
 
                         <TextView
+                            android:fontFamily="@font/titan_one"
                             android:id="@+id/txtHammerCount"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -211,6 +223,7 @@
                             android:src="@drawable/ic_booster_shuffle" />
 
                         <TextView
+                            android:fontFamily="@font/titan_one"
                             android:id="@+id/txtShuffleCount"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -237,6 +250,7 @@
                             android:src="@drawable/ic_booster_bomb" />
 
                         <TextView
+                            android:fontFamily="@font/titan_one"
                             android:id="@+id/txtBombCount"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -263,6 +277,7 @@
                             android:src="@drawable/ic_booster_color" />
 
                         <TextView
+                            android:fontFamily="@font/titan_one"
                             android:id="@+id/txtColorCount"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -275,12 +290,14 @@
                     </FrameLayout>
                 </LinearLayout>
             </LinearLayout>
+
+            <FrameLayout
+                android:id="@+id/effectsLayer"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clipChildren="false"
+                android:clipToPadding="false" />
         </RelativeLayout>
     </LinearLayout>
-    <FrameLayout
-        android:id="@+id/effectsLayer"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:clipChildren="false"
-        android:clipToPadding="false"/>
+
 </FrameLayout>

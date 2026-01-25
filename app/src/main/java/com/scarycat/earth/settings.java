@@ -2,6 +2,7 @@ package com.scarycat.earth;
 
 import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
+import android.media.SoundPool;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
@@ -17,6 +18,9 @@ import com.scarycat.earth.utils.MusicManager;
 
 public class settings extends AppCompatActivity {
     private SharedPreferences prefs;
+    SoundPool soundPool;
+    int tapSound;
+
     @SuppressLint("UseSwitchCompatOrMaterialCode")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +33,12 @@ public class settings extends AppCompatActivity {
                         | View.SYSTEM_UI_FLAG_FULLSCREEN
                         | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
         );
+
+        soundPool = new SoundPool.Builder()
+                .setMaxStreams(5)
+                .build();
+
+        tapSound = soundPool.load(this, R.raw.btn, 1);
 
         prefs = getSharedPreferences("earth_game_prefs", MODE_PRIVATE);
 
@@ -91,18 +101,36 @@ public class settings extends AppCompatActivity {
 
         // RESET GAME
         btnResetGame.setOnClickListener(v -> {
+            if(prefs.getBoolean("sfx_on", true)){
+                float val = prefs.getInt("sfx_volume", 80);
+                soundPool.play(tapSound, val, val, 1, 0, 1f);
+            }
             v.animate()
-                    .scaleX(0.9f)
-                    .scaleY(0.9f)
+                    .scaleX(0.8f)
+                    .scaleY(0.8f)
+                    .rotationBy(-5f)
                     .setDuration(80)
-                    .withEndAction(() ->
-                            v.animate()
+                    .withEndAction(() -> v.animate()
+                            .scaleX(1.1f)
+                            .scaleY(1.1f)
+                            .rotationBy(10f)
+                            .setDuration(120)
+                            .withEndAction(() -> v.animate()
                                     .scaleX(1f)
                                     .scaleY(1f)
+                                    .rotation(0f)
                                     .setDuration(80)
+                                    .withEndAction(() -> {
+                                        showResetDialog();
+                                    })
+                            )
                     );
-            showResetDialog();
+
         });
+
+        if(!prefs.getBoolean("music_on", true)){
+            MusicManager.pause();
+        }
     }
 
     private void showResetDialog() {
@@ -115,5 +143,13 @@ public class settings extends AppCompatActivity {
                 })
                 .setNegativeButton("NO", null)
                 .show();
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (soundPool != null) {
+            soundPool.release();
+            soundPool = null;
+        }
     }
 }

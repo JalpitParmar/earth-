@@ -4,6 +4,7 @@ package com.scarycat.earth;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.SoundPool;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -31,7 +32,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Meanu extends AppCompatActivity {
-
+    SoundPool soundPool;
+    int tapSound,swaplevelsound;
     ImageButton btnShop, btnWatchAdHeart, btnNext, btnPrev,btnspin,btnmission;
     TextView tvGoldBars, tvHearts, tvCoins,tvhammer,tvbomb,tvswap,tvcolor_bomb;
     GridView gridLevels;
@@ -75,6 +77,13 @@ public class Meanu extends AppCompatActivity {
                         | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
         );
 
+        soundPool = new SoundPool.Builder()
+                .setMaxStreams(5)
+                .build();
+
+        tapSound = soundPool.load(this, R.raw.btn, 1);
+        swaplevelsound = soundPool.load(this,R.raw.air,1);
+
         prefs = new PreferencesManager(this);
 
 //        MobileAds.initialize(this, initializationStatus -> {});
@@ -94,11 +103,37 @@ public class Meanu extends AppCompatActivity {
         btnmission = findViewById(R.id.meanu_btnmission);
 
         updateCurrencyDisplay();
-        btnShop.setOnClickListener(v ->
-                startActivity(new Intent(this, Shop.class))
-        );
+        btnShop.setOnClickListener(v -> {
+            if(prefs.getBoolean("sfx_on", true)){
+                float val = prefs.getInt("sfx_volume", 80);
+                soundPool.play(tapSound, val, val, 1, 0, 1f);
+            }
+            v.animate()
+                    .scaleX(0.85f)
+                    .scaleY(0.85f)
+                    .setDuration(80)
+                    .withEndAction(() -> v.animate()
+                            .scaleX(1.05f)
+                            .scaleY(1.05f)
+                            .setDuration(120)
+                            .withEndAction(() -> v.animate()
+                                    .scaleX(1f)
+                                    .scaleY(1f)
+                                    .setDuration(80)
+                                    .withEndAction(() ->
+                                            startActivity(new Intent(this, Shop.class))
+                                    )
+                            )
+                    );
+
+        });
 
         btnNext.setOnClickListener(v -> {
+            if(prefs.getBoolean("sfx_on", true)){
+                float val = prefs.getInt("sfx_volume", 80);
+                soundPool.play(swaplevelsound, val, val, 1, 0, 1f);
+
+            }
             int nextStart = (page + 1) * LEVELS_PER_PAGE + 1;
             if (nextStart <= MAX_LEVEL) {
 
@@ -113,8 +148,12 @@ public class Meanu extends AppCompatActivity {
             }
         });
         btnPrev.setOnClickListener(v -> {
-            if (page > 0) {
 
+            if (page > 0) {
+                if(prefs.getBoolean("sfx_on", true)){
+                    float val = prefs.getInt("sfx_volume", 80);
+                    soundPool.play(swaplevelsound, val, val, 1, 0, 1f);
+                }
                 animateGrid(false);
 
                 page--;
@@ -125,13 +164,54 @@ public class Meanu extends AppCompatActivity {
                 gridLevels.postDelayed(this::loadLevels, 200);
             }
         });
-        btnspin.setOnClickListener(view -> {
+        btnspin.setOnClickListener(v -> {
+            if(prefs.getBoolean("sfx_on", true)){
+                float val = prefs.getInt("sfx_volume", 80);
+                soundPool.play(tapSound, val, val, 1, 0, 1f);
+            }
             Intent intent = new Intent(this,spin.class);
-            startActivity(intent);
+            v.animate()
+                    .scaleX(0.85f)
+                    .scaleY(0.85f)
+                    .setDuration(80)
+                    .withEndAction(() -> v.animate()
+                            .scaleX(1.05f)
+                            .scaleY(1.05f)
+                            .setDuration(120)
+                            .withEndAction(() -> v.animate()
+                                    .scaleX(1f)
+                                    .scaleY(1f)
+                                    .setDuration(80)
+                                    .withEndAction(() ->
+                                            startActivity(intent)
+                                    )
+                            )
+                    );
         });
-        btnmission.setOnClickListener(view -> {
+        btnmission.setOnClickListener(v -> {
+            if(prefs.getBoolean("sfx_on", true)){
+                float val = prefs.getInt("sfx_volume", 80);
+                soundPool.play(tapSound, val, val, 1, 0, 1f);
+            }
             Intent intent = new Intent(this,MissionChest.class);
-            startActivity(intent);
+            v.animate()
+                    .scaleX(0.85f)
+                    .scaleY(0.85f)
+                    .setDuration(80)
+                    .withEndAction(() -> v.animate()
+                            .scaleX(1.05f)
+                            .scaleY(1.05f)
+                            .setDuration(120)
+                            .withEndAction(() -> v.animate()
+                                    .scaleX(1f)
+                                    .scaleY(1f)
+                                    .setDuration(80)
+                                    .withEndAction(() ->
+                                            startActivity(intent)
+                                    )
+                            )
+                    );
+
         });
 
 
@@ -142,7 +222,10 @@ public class Meanu extends AppCompatActivity {
                 Toast.makeText(this, "Level locked 🔒", Toast.LENGTH_SHORT).show();
                 return;
             }
-
+            if(prefs.getBoolean("sfx_on", true)){
+                float val = prefs.getInt("sfx_volume", 80);
+                soundPool.play(tapSound, val, val, 1, 0, 1f);
+            }
             SharedPreferences prefs = getSharedPreferences("earth_game_prefs", MODE_PRIVATE);
             int hearts = prefs.getInt("hearts", 0);
 
@@ -159,21 +242,55 @@ public class Meanu extends AppCompatActivity {
 
         loadRewardedAd();
         btnWatchAdHeart.setOnClickListener(v -> {
-            if (rewardedAd != null) {
-                MusicManager.pause();
-                rewardedAd.show(this, rewardItem -> giveFreeHeart());
-            } else {
-                Toast.makeText(this, "Ad not loaded yet", Toast.LENGTH_SHORT).show();
-                loadRewardedAd();
+            if(prefs.getBoolean("sfx_on", true)){
+                float val = prefs.getInt("sfx_volume", 80);
+                soundPool.play(tapSound, val, val, 1, 0, 1f);
             }
+            v.animate()
+                    .scaleX(0.8f)
+                    .scaleY(0.8f)
+                    .rotationBy(-5f)
+                    .setDuration(80)
+                    .withEndAction(() -> v.animate()
+                            .scaleX(1.1f)
+                            .scaleY(1.1f)
+                            .rotationBy(10f)
+                            .setDuration(120)
+                            .withEndAction(() -> v.animate()
+                                    .scaleX(1f)
+                                    .scaleY(1f)
+                                    .rotation(0f)
+                                    .setDuration(80)
+                                    .withEndAction(() -> {
+                                        if (rewardedAd != null) {
+                                            MusicManager.pause();
+                                            rewardedAd.show(this, rewardItem -> giveFreeHeart());
+                                        } else {
+                                            Toast.makeText(this, "Ad not loaded yet", Toast.LENGTH_SHORT).show();
+                                            loadRewardedAd();
+                                        }
+                                    })
+                            )
+                    );
         });
 
 
         int latestLevel = getLatestUnlockedLevel();
         page = (latestLevel - 1) / LEVELS_PER_PAGE;
         loadLevels();
-    }
 
+        if(!prefs.getBoolean("music_on", true)){
+            MusicManager.pause();
+        }
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (soundPool != null) {
+            soundPool.release();
+            soundPool = null;
+        }
+    }
     // ------------------ LEVEL LOAD ------------------
 
     private void loadLevels() {
@@ -248,7 +365,11 @@ public class Meanu extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        MusicManager.resume();
+        if(!prefs.getBoolean("music_on", true)){
+            MusicManager.pause();
+        }else {
+            MusicManager.resume();
+        }
         updateCurrencyDisplay();
     }
     // ------------------ UI ------------------
@@ -263,10 +384,6 @@ public class Meanu extends AppCompatActivity {
         tvCoins.setText(""+prefs.getInt("coins", 0));
         tvHearts.setText(""+prefs.getInt("hearts", 0));
         tvGoldBars.setText(""+prefs.getInt("goldbars", 0));
-//        tvhammer.setText("hammer: " + prefs.getInt("booster_hammer_count", 0));
-//        tvbomb.setText("bomb: " + prefs.getInt("booster_bomb_count", 0));
-//        tvswap.setText("swap: " + prefs.getInt("booster_swap_count", 0));
-//        tvcolor_bomb.setText("color bomb: " + prefs.getInt("booster_color_bomb_count", 0));
     }
     private int getLatestUnlockedLevel() {
         SharedPreferences sp = getSharedPreferences("earth_game_prefs", MODE_PRIVATE);
@@ -316,5 +433,4 @@ public class Meanu extends AppCompatActivity {
 
         rootLayout.startAnimation(fadeOut);
     }
-
 }

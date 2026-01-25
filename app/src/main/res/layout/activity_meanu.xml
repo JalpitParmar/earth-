@@ -32,6 +32,7 @@
 
             <!-- HEARTS -->
             <TextView
+                android:fontFamily="@font/titan_one"
                 android:id="@+id/tvHearts"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -44,6 +45,7 @@
 
             <!-- COINS -->
             <TextView
+                android:fontFamily="@font/titan_one"
                 android:id="@+id/tvCoins"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -56,6 +58,7 @@
 
             <!-- GOLD BARS -->
             <TextView
+                android:fontFamily="@font/titan_one"
                 android:id="@+id/tvGoldBars"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"

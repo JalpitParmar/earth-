@@ -9,7 +9,7 @@ public class Level48 extends BlockerLevelBaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        LEVEL_NUMBER = 33;
+        LEVEL_NUMBER = 48;
         ROWS = 9;
         COLS = 9;
         MOVES = 20;
@@ -60,7 +60,7 @@ public class Level48 extends BlockerLevelBaseActivity {
                 {0,0,0,0,0,0,0,0,0},
                 {0,0,0,0,0,0,0,0,0},
                 {0,0,0,0,0,0,0,0,0},
-                {0,0,0,3,3,3,0,0,0}
+                {0,0,0,2,2,2,0,0,0}
         };
 
         for (int r = 0; r < ROWS; r++) {

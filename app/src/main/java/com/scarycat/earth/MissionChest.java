@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.media.SoundPool;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -21,11 +22,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.scarycat.earth.utils.ChestTier;
 import com.scarycat.earth.utils.MissionChestManager;
+import com.scarycat.earth.utils.MusicManager;
 import com.scarycat.earth.utils.PreferencesManager;
 import com.scarycat.earth.utils.RewardChance;
 
 public class MissionChest extends AppCompatActivity {
-
+    SoundPool soundPool;
+    int tapSound,rewadsound;
     private static final int MAX_WINS = 5;
 
     private TextView tvProgress, tvReward, tvChestTier;
@@ -47,6 +50,12 @@ public class MissionChest extends AppCompatActivity {
                         | View.SYSTEM_UI_FLAG_FULLSCREEN
                         | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
         );
+        soundPool = new SoundPool.Builder()
+                .setMaxStreams(5)
+                .build();
+
+        tapSound = soundPool.load(this, R.raw.btn, 1);
+        rewadsound = soundPool.load(this,R.raw.rewad,1);
 
         mission = new MissionChestManager(this);
         prefs = new PreferencesManager(this);
@@ -61,13 +70,52 @@ public class MissionChest extends AppCompatActivity {
         containerProbabilities = findViewById(R.id.containerProbabilities);
 
         progressBar.setMax(MAX_WINS);
-        btnOpenChest.setOnClickListener(v -> openChest());
+        btnOpenChest.setOnClickListener(v -> {
+            v.animate()
+                    .scaleX(0.8f)
+                    .scaleY(0.8f)
+                    .rotationBy(-5f)
+                    .setDuration(80)
+                    .withEndAction(() -> v.animate()
+                            .scaleX(1.1f)
+                            .scaleY(1.1f)
+                            .rotationBy(10f)
+                            .setDuration(120)
+                            .withEndAction(() -> v.animate()
+                                    .scaleX(1f)
+                                    .scaleY(1f)
+                                    .rotation(0f)
+                                    .setDuration(80)
+                                    .withEndAction(() -> {
+                                        openChest();
+                                    })
+                            )
+                    );
+
+        });
 
         updateUI();
+
+        if(!prefs.getBoolean("music_on", true)){
+            MusicManager.pause();
+        }
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (soundPool != null) {
+            soundPool.release();
+            soundPool = null;
+        }
     }
     @Override
     protected void onResume() {
         super.onResume();
+        if(!prefs.getBoolean("music_on", true)){
+            MusicManager.pause();
+        }else {
+            MusicManager.resume();
+        }
         updateUI();
 
     }
@@ -79,7 +127,10 @@ public class MissionChest extends AppCompatActivity {
                     Toast.LENGTH_SHORT).show();
             return;
         }
-
+        if(prefs.getBoolean("sfx_on", true)){
+            float val = prefs.getInt("sfx_volume", 80);
+            soundPool.play(tapSound, val, val, 1, 0, 1f);
+        }
         MissionChestManager.ChestReward reward = mission.openChest();
 
         if (reward != null) {
@@ -230,6 +281,10 @@ public class MissionChest extends AppCompatActivity {
         }
     }
     private void showRewardPopup(String reward) {
+        if(prefs.getBoolean("sfx_on", true)){
+            float val = prefs.getInt("sfx_volume", 80);
+            soundPool.play(rewadsound, val, val, 1, 0, 1f);
+        }
 
         Dialog dialog = new Dialog(this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -238,6 +293,25 @@ public class MissionChest extends AppCompatActivity {
 
         TextView tv = dialog.findViewById(R.id.tvReward);
         tv.setText("🎁 You won: " + reward);
+        ImageView ri = dialog.findViewById(R.id.rewardimg);
+
+        if (reward == "Coins") {
+            ri.setImageResource(R.drawable.rewad_coin);
+
+        } else if (reward == "Hammer") {
+            ri.setImageResource(R.drawable.hammer_rewad);
+
+        } else if (reward == "Bomb") {
+            ri.setImageResource(R.drawable.bomb_rewad);
+        } else if (reward == "Heart") {
+            ri.setImageResource(R.drawable.heart_rewad);
+        } else if (reward == "Swap") {
+            ri.setImageResource(R.drawable.swap_rewad);
+        } else if (reward == "Color Bomb") {
+            ri.setImageResource(R.drawable.colorboomb_rewad);
+        } else if (reward == "Gold Bars") {
+            ri.setImageResource(R.drawable.goldbar_rewad);
+        }
 
         if (dialog.getWindow() != null) {
             dialog.getWindow().setBackgroundDrawable(

@@ -19,8 +19,8 @@ public class MusicManager {
     private static MediaPlayer player;
     private static Context appContext;
 
-    private static float volume = 1f;
-    private static float targetVolume = 1f;
+    private static float volume = 0.4f;
+    private static float targetVolume = 0.4f;
 
     private static boolean initialized = false;
     private static boolean appInForeground = true;
@@ -38,7 +38,13 @@ public class MusicManager {
     private static final int[] PLAYLIST = {
             R.raw.music1,
             R.raw.music2,
-            R.raw.music3
+            R.raw.music4,
+            R.raw.music5,
+            R.raw.music6,
+            R.raw.music7,
+            R.raw.music8,
+            R.raw.music9,
+            R.raw.music10
     };
 
     private static final Random random = new Random();
