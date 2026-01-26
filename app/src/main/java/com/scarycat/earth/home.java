@@ -1,6 +1,9 @@
 package com.scarycat.earth;
 
 import android.annotation.SuppressLint;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.SoundPool;
@@ -8,10 +11,13 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -20,11 +26,16 @@ import androidx.core.view.WindowInsetsCompat;
 import com.scarycat.earth.utils.HeartsManager;
 import com.scarycat.earth.utils.MissionChestManager;
 import com.scarycat.earth.utils.MusicManager;
+import com.scarycat.earth.utils.SpinReminderReceiver;
+
+import java.util.Calendar;
 
 public class home extends AppCompatActivity {
     private SharedPreferences prefs;
     SoundPool soundPool;
     int tapSound;
+    private long lastBackPressTime = 0;
+    private static final long BACK_PRESS_DELAY = 2000; // 2 seconds
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -81,9 +92,10 @@ public class home extends AppCompatActivity {
                                     .scaleX(1f)
                                     .scaleY(1f)
                                     .setDuration(80)
-                                    .withEndAction(() ->
-                                            startActivity(intent)
-                                    )
+                                    .withEndAction(() ->{
+                                        startActivity(intent);
+                                        finish();
+                                    })
                             )
                     );
             overridePendingTransition(0, 0);
@@ -110,9 +122,10 @@ public class home extends AppCompatActivity {
                                     .scaleX(1f)
                                     .scaleY(1f)
                                     .setDuration(80)
-                                    .withEndAction(() ->
-                                            startActivity(intent)
-                                    )
+                                    .withEndAction(() ->{
+                                        startActivity(intent);
+                                        finish();
+                                    })
                             )
                     );
         });
@@ -175,6 +188,9 @@ public class home extends AppCompatActivity {
         if(prefs.getBoolean("music_on", true)){
             MusicManager.resume();
         }
+        if (prefs.getBoolean("notification_on", true)) {
+            scheduleDailySpinNotification();
+        }
     }
     @Override
     protected void onResume() {
@@ -194,5 +210,67 @@ public class home extends AppCompatActivity {
         }
     }
 
+    private void scheduleDailySpinNotification() {
 
+        AlarmManager alarmManager =
+                (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+
+        Intent intent = new Intent(this, SpinReminderReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(
+                this,
+                0,
+                intent,
+                PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE
+        );
+
+        // ⏰ Fire at 10:00 AM daily
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, 10);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+
+        // If time passed today → schedule tomorrow
+        if (calendar.getTimeInMillis() < System.currentTimeMillis()) {
+            calendar.add(Calendar.DAY_OF_YEAR, 1);
+        }
+
+        alarmManager.setRepeating(
+                AlarmManager.RTC_WAKEUP,
+                calendar.getTimeInMillis(),
+                AlarmManager.INTERVAL_DAY,
+                pendingIntent
+        );
+    }
+    @SuppressLint("MissingSuperCall")
+    @Override
+    public void onBackPressed() {
+
+
+        if (System.currentTimeMillis() - lastBackPressTime < BACK_PRESS_DELAY) {
+            showExitDialog();
+        } else {
+            lastBackPressTime = System.currentTimeMillis();
+            Toast.makeText(this, "Press back again to exit", Toast.LENGTH_SHORT).show();
+        }
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            onBackPressed(); // SAME behavior
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+    private void showExitDialog() {
+
+        new AlertDialog.Builder(this)
+                .setTitle("Exit Game")
+                .setMessage("Are you sure you want to close the game?")
+                .setCancelable(false)
+                .setPositiveButton("Yes", (dialog, which) -> {
+                    finishAffinity(); // closes entire app
+                })
+                .setNegativeButton("No", (dialog, which) -> dialog.dismiss())
+                .show();
+    }
 }

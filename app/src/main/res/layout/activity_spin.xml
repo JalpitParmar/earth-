@@ -179,4 +179,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
     </LinearLayout>
+    <LinearLayout
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:gravity="center"
+        android:padding="8dp">
+        <ImageButton
+            android:id="@+id/btnback"
+            android:layout_width="100dp"
+            android:layout_height="56dp"
+            android:layout_marginHorizontal="12dp"
+            android:background="@drawable/back_btn" />
+    </LinearLayout>
 </LinearLayout>

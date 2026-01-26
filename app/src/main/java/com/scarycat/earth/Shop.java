@@ -1,12 +1,16 @@
 package com.scarycat.earth;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.media.SoundPool;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.scarycat.earth.utils.MusicManager;
@@ -17,11 +21,12 @@ public class Shop extends AppCompatActivity {
     int tapSound,coinsound;
     private TextView tvCoins, tvHearts, tvGoldBars,tvhammer,tvbomb,tvswap,tvcolor_bomb;
     private ImageButton btnBuyHammer, btnBuyBomb, btnBuyBombHammerCombo, btnBuySwap,
-            btnBuyColorBomb, btnBuySwapColorBombCombo, btnBuyHeart, btnAddCoins;
+            btnBuyColorBomb, btnBuySwapColorBombCombo, btnBuyHeart, btnAddCoins, btnback;
 
     private PreferencesManager prefs;
 
-
+    private long lastBackPressTime = 0;
+    private static final long BACK_PRESS_DELAY = 2000; // 2 seconds
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,9 +63,37 @@ public class Shop extends AppCompatActivity {
         btnBuySwapColorBombCombo = findViewById(R.id.btnBuySwapColorBombCombo);
         btnBuyHeart = findViewById(R.id.btnBuyHeart);
         btnAddCoins = findViewById(R.id.btnAddCoins);
-
+        btnback = findViewById(R.id.btnback);
 
         updateCurrencyDisplay();
+
+        btnback.setOnClickListener(v -> {
+            if(prefs.getBoolean("sfx_on", true)){
+                float val = prefs.getInt("sfx_volume", 80);
+                soundPool.play(tapSound, val, val, 1, 0, 1f);
+
+            }
+            Intent intent = new Intent(this, Meanu.class);
+            v.animate()
+                    .scaleX(0.85f)
+                    .scaleY(0.85f)
+                    .setDuration(80)
+                    .withEndAction(() -> v.animate()
+                            .scaleX(1.05f)
+                            .scaleY(1.05f)
+                            .setDuration(120)
+                            .withEndAction(() -> v.animate()
+                                    .scaleX(1f)
+                                    .scaleY(1f)
+                                    .setDuration(80)
+                                    .withEndAction(() ->{
+                                        startActivity(intent);
+                                        finish();
+                                    })
+                            )
+                    );
+        });
+
 
         // Button click listeners
         btnBuyHammer.setOnClickListener(v ->{
@@ -374,5 +407,37 @@ public class Shop extends AppCompatActivity {
             soundPool.release();
             soundPool = null;
         }
+    }
+    @SuppressLint("MissingSuperCall")
+    @Override
+    public void onBackPressed() {
+
+
+        if (System.currentTimeMillis() - lastBackPressTime < BACK_PRESS_DELAY) {
+            showExitDialog();
+        } else {
+            lastBackPressTime = System.currentTimeMillis();
+            Toast.makeText(this, "Press back again to exit", Toast.LENGTH_SHORT).show();
+        }
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            onBackPressed(); // SAME behavior
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+    private void showExitDialog() {
+
+        new AlertDialog.Builder(this)
+                .setTitle("Exit Game")
+                .setMessage("Are you sure you want to close the game?")
+                .setCancelable(false)
+                .setPositiveButton("Yes", (dialog, which) -> {
+                    finishAffinity(); // closes entire app
+                })
+                .setNegativeButton("No", (dialog, which) -> dialog.dismiss())
+                .show();
     }
 }

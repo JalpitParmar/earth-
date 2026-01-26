@@ -62,7 +62,7 @@ public class Level36 extends BlockerLevelBaseActivity {
                 {0,0,0,0,0,0,0,0,0},
                 {0,0,0,0,0,0,0,0,0},
                 {0,0,0,0,0,0,0,0,0},
-                {0,0,0,2,2,2,0,0,0}
+                {0,0,0,3,3,3,0,0,0}
         };
 
         for (int r = 0; r < ROWS; r++) {

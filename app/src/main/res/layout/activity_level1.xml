@@ -118,15 +118,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
-                <ProgressBar
-                    android:id="@+id/progressTargets"
-                    style="?android:attr/progressBarStyleHorizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="10dp"
-                    android:max="100"
-                    android:progress="0"
-                    android:progressDrawable="@drawable/progress_targets"
-                    android:layout_margin="8dp"/>
                 <TextView
                     android:id="@+id/txtTutorial"
                     android:layout_width="match_parent"

@@ -1,9 +1,7 @@
 package com.scarycat.earth;
 
 import android.annotation.SuppressLint;
-import android.app.AlarmManager;
 import android.app.Dialog;
-import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -12,19 +10,19 @@ import android.media.SoundPool;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.RotateAnimation;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.scarycat.earth.utils.DailySpinReceiver;
 import com.scarycat.earth.utils.MusicManager;
 import com.scarycat.earth.utils.PreferencesManager;
 import com.google.android.gms.ads.AdRequest;
@@ -42,7 +40,7 @@ public class spin extends AppCompatActivity {
     int tapSound,spinsound,rewadsound;
     TextView tvGoldBars, tvHearts, tvCoins,tvhammer,tvbomb,tvswap,tvcolor_bomb;
     private ImageView imgWheel;
-    private ImageButton btnSpin, btnWatchAdSpin;
+    private ImageButton btnSpin, btnWatchAdSpin,btnback;
     private TextView tvResult;
 
     private PreferencesManager prefs;
@@ -53,6 +51,9 @@ public class spin extends AppCompatActivity {
     private static final String PREF_EXTRA_SPIN = "extra_spin_count";
 
     private Random random = new Random();
+
+    private long lastBackPressTime = 0;
+    private static final long BACK_PRESS_DELAY = 2000; // 2 seconds
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -86,7 +87,7 @@ public class spin extends AppCompatActivity {
         tvbomb = findViewById(R.id.tvBomb);
         tvswap = findViewById(R.id.tvSwap);
         tvcolor_bomb = findViewById(R.id.tvColorBomb);
-
+        btnback = findViewById(R.id.btnback);
        updateui();
         // ✅ PRELOAD AD
         loadRewardedAd();
@@ -182,6 +183,34 @@ public class spin extends AppCompatActivity {
         if(!prefs.getBoolean("music_on", true)){
             MusicManager.pause();
         }
+
+        btnback.setOnClickListener(v -> {
+            if(prefs.getBoolean("sfx_on", true)){
+                float val = prefs.getInt("sfx_volume", 80);
+                soundPool.play(tapSound, val, val, 1, 0, 1f);
+
+            }
+            Intent intent = new Intent(this, Meanu.class);
+            v.animate()
+                    .scaleX(0.85f)
+                    .scaleY(0.85f)
+                    .setDuration(80)
+                    .withEndAction(() -> v.animate()
+                            .scaleX(1.05f)
+                            .scaleY(1.05f)
+                            .setDuration(120)
+                            .withEndAction(() -> v.animate()
+                                    .scaleX(1f)
+                                    .scaleY(1f)
+                                    .setDuration(80)
+                                    .withEndAction(() ->{
+                                        startActivity(intent);
+                                        finish();
+                                    })
+                            )
+                    );
+        });
+
     }
     void updateui(){
         tvCoins.setText(""+prefs.getInt("coins", 0));
@@ -321,9 +350,9 @@ public class spin extends AppCompatActivity {
             editor.putString(PREF_LAST_SPIN_DATE, getToday());
         }
         editor.apply();
-        if (prefs.getBoolean("notification_on", true)) {
-            scheduleDailySpinNotification();
-        }
+//        if (prefs.getBoolean("notification_on", true)) {
+//            scheduleDailySpinNotification();
+//        }
     }
     private String getToday() {
         return new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
@@ -412,32 +441,34 @@ public class spin extends AppCompatActivity {
             soundPool = null;
         }
     }
-    @SuppressLint("ScheduleExactAlarm")
-    private void scheduleDailySpinNotification() {
-
-        long now = System.currentTimeMillis();
-
-        // Next day (24h later)
-        long nextDay = now + 24 * 60 * 60 * 1000;
-
-        Intent intent = new Intent(this, DailySpinReceiver.class);
-
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(
-                this,
-                0,
-                intent,
-                PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE
-        );
-
-        AlarmManager alarmManager =
-                (AlarmManager) getSystemService(ALARM_SERVICE);
-
-        if (alarmManager != null) {
-            alarmManager.setExactAndAllowWhileIdle(
-                    AlarmManager.RTC_WAKEUP,
-                    nextDay,
-                    pendingIntent
-            );
+    @SuppressLint("MissingSuperCall")
+    @Override
+    public void onBackPressed() {
+        if (System.currentTimeMillis() - lastBackPressTime < BACK_PRESS_DELAY) {
+            showExitDialog();
+        } else {
+            lastBackPressTime = System.currentTimeMillis();
+            Toast.makeText(this, "Press back again to exit", Toast.LENGTH_SHORT).show();
         }
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            onBackPressed(); // SAME behavior
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+    private void showExitDialog() {
+
+        new AlertDialog.Builder(this)
+                .setTitle("Exit Game")
+                .setMessage("Are you sure you want to close the game?")
+                .setCancelable(false)
+                .setPositiveButton("Yes", (dialog, which) -> {
+                    finishAffinity(); // closes entire app
+                })
+                .setNegativeButton("No", (dialog, which) -> dialog.dismiss())
+                .show();
     }
 }

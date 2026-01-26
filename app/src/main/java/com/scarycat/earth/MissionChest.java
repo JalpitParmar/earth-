@@ -2,12 +2,14 @@ package com.scarycat.earth;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.media.SoundPool;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -18,6 +20,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.scarycat.earth.utils.ChestTier;
@@ -33,11 +36,13 @@ public class MissionChest extends AppCompatActivity {
 
     private TextView tvProgress, tvReward, tvChestTier;
     private ProgressBar progressBar;
-    private ImageButton btnOpenChest;
+    private ImageButton btnOpenChest,btnback;
     private ImageView imgChest,imgname;
     private LinearLayout containerProbabilities;
     private PreferencesManager prefs;
     private MissionChestManager mission;
+    private long lastBackPressTime = 0;
+    private static final long BACK_PRESS_DELAY = 2000; // 2 seconds
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -62,6 +67,7 @@ public class MissionChest extends AppCompatActivity {
         tvProgress = findViewById(R.id.tvProgress);
         tvReward = findViewById(R.id.tvReward);
         imgname = findViewById(R.id.name);
+        btnback = findViewById(R.id.btnback);
 //        tvChestTier = findViewById(R.id.tvChestTier);
 
         progressBar = findViewById(R.id.progressBar);
@@ -99,6 +105,33 @@ public class MissionChest extends AppCompatActivity {
         if(!prefs.getBoolean("music_on", true)){
             MusicManager.pause();
         }
+
+        btnback.setOnClickListener(v -> {
+            if(prefs.getBoolean("sfx_on", true)){
+                float val = prefs.getInt("sfx_volume", 80);
+                soundPool.play(tapSound, val, val, 1, 0, 1f);
+
+            }
+            Intent intent = new Intent(this, Meanu.class);
+            v.animate()
+                    .scaleX(0.85f)
+                    .scaleY(0.85f)
+                    .setDuration(80)
+                    .withEndAction(() -> v.animate()
+                            .scaleX(1.05f)
+                            .scaleY(1.05f)
+                            .setDuration(120)
+                            .withEndAction(() -> v.animate()
+                                    .scaleX(1f)
+                                    .scaleY(1f)
+                                    .setDuration(80)
+                                    .withEndAction(() ->{
+                                        startActivity(intent);
+                                        finish();
+                                    })
+                            )
+                    );
+        });
     }
     @Override
     protected void onDestroy() {
@@ -327,5 +360,37 @@ public class MissionChest extends AppCompatActivity {
                 dialog.dismiss();
             }
         }, 2000);
+    }
+    @SuppressLint("MissingSuperCall")
+    @Override
+    public void onBackPressed() {
+
+
+        if (System.currentTimeMillis() - lastBackPressTime < BACK_PRESS_DELAY) {
+            showExitDialog();
+        } else {
+            lastBackPressTime = System.currentTimeMillis();
+            Toast.makeText(this, "Press back again to exit", Toast.LENGTH_SHORT).show();
+        }
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            onBackPressed(); // SAME behavior
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+    private void showExitDialog() {
+
+        new AlertDialog.Builder(this)
+                .setTitle("Exit Game")
+                .setMessage("Are you sure you want to close the game?")
+                .setCancelable(false)
+                .setPositiveButton("Yes", (dialog, which) -> {
+                    finishAffinity(); // closes entire app
+                })
+                .setNegativeButton("No", (dialog, which) -> dialog.dismiss())
+                .show();
     }
 }

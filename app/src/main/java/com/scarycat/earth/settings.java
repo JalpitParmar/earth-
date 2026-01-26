@@ -1,9 +1,11 @@
 package com.scarycat.earth;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.SoundPool;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.SeekBar;
@@ -20,6 +22,9 @@ public class settings extends AppCompatActivity {
     private SharedPreferences prefs;
     SoundPool soundPool;
     int tapSound;
+
+    private long lastBackPressTime = 0;
+    private static final long BACK_PRESS_DELAY = 2000; // 2 seconds
 
     @SuppressLint("UseSwitchCompatOrMaterialCode")
     @Override
@@ -49,6 +54,7 @@ public class settings extends AppCompatActivity {
         SeekBar seekMusic = findViewById(R.id.seekMusic);
         SeekBar seekSfx = findViewById(R.id.seekSfx);
         ImageButton btnResetGame = findViewById(R.id.btnResetGame);
+        ImageButton btnback = findViewById(R.id.btnback);
 
         // Load saved values
         switchMusic.setChecked(prefs.getBoolean("music_on", true));
@@ -131,6 +137,34 @@ public class settings extends AppCompatActivity {
         if(!prefs.getBoolean("music_on", true)){
             MusicManager.pause();
         }
+
+        btnback.setOnClickListener(v -> {
+            if(prefs.getBoolean("sfx_on", true)){
+                float val = prefs.getInt("sfx_volume", 80);
+                soundPool.play(tapSound, val, val, 1, 0, 1f);
+
+            }
+            Intent intent = new Intent(this, home.class);
+            v.animate()
+                    .scaleX(0.85f)
+                    .scaleY(0.85f)
+                    .setDuration(80)
+                    .withEndAction(() -> v.animate()
+                            .scaleX(1.05f)
+                            .scaleY(1.05f)
+                            .setDuration(120)
+                            .withEndAction(() -> v.animate()
+                                    .scaleX(1f)
+                                    .scaleY(1f)
+                                    .setDuration(80)
+                                    .withEndAction(() ->{
+                                        startActivity(intent);
+                                        finish();
+                                    })
+                            )
+                    );
+        });
+
     }
 
     private void showResetDialog() {
@@ -151,5 +185,37 @@ public class settings extends AppCompatActivity {
             soundPool.release();
             soundPool = null;
         }
+    }
+    @SuppressLint("MissingSuperCall")
+    @Override
+    public void onBackPressed() {
+
+
+        if (System.currentTimeMillis() - lastBackPressTime < BACK_PRESS_DELAY) {
+            showExitDialog();
+        } else {
+            lastBackPressTime = System.currentTimeMillis();
+            Toast.makeText(this, "Press back again to exit", Toast.LENGTH_SHORT).show();
+        }
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            onBackPressed(); // SAME behavior
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+    private void showExitDialog() {
+
+        new AlertDialog.Builder(this)
+                .setTitle("Exit Game")
+                .setMessage("Are you sure you want to close the game?")
+                .setCancelable(false)
+                .setPositiveButton("Yes", (dialog, which) -> {
+                    finishAffinity(); // closes entire app
+                })
+                .setNegativeButton("No", (dialog, which) -> dialog.dismiss())
+                .show();
     }
 }

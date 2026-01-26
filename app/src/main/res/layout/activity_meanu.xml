@@ -135,7 +135,13 @@
             android:layout_weight="1"
             android:layout_marginHorizontal="12dp"
             android:background="@drawable/previous_btn" />
-
+        <ImageButton
+            android:id="@+id/btnback"
+            android:layout_width="0dp"
+            android:layout_height="56dp"
+            android:layout_weight="1"
+            android:layout_marginHorizontal="12dp"
+            android:background="@drawable/back_btn" />
         <ImageButton
             android:id="@+id/btnNext"
             android:layout_width="0dp"

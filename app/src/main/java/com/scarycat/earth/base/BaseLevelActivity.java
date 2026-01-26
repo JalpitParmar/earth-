@@ -1,18 +1,24 @@
 package com.scarycat.earth.base;
 
+
+
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
+import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.media.SoundPool;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.AlphaAnimation;
@@ -134,7 +140,6 @@ public abstract class BaseLevelActivity extends AppCompatActivity {
     int comboCount = 0;
     float comboMultiplier = 1f;
     TextView txtCombo;
-    ProgressBar progressTargets;
 
     int TOTAL_TARGET_COUNT = 0;
 
@@ -173,6 +178,8 @@ public abstract class BaseLevelActivity extends AppCompatActivity {
     private PreferencesManager prefs;
 
     LinearLayout bgforlevel;
+    private long lastBackPressTime = 0;
+    private static final long BACK_PRESS_DELAY = 2000; // 2 seconds
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -216,7 +223,7 @@ public abstract class BaseLevelActivity extends AppCompatActivity {
         btnPause = findViewById(R.id.btnPause);
         prefs = new PreferencesManager(this);
         txtCombo = findViewById(R.id.txtCombo);
-        progressTargets = findViewById(R.id.progressTargets);
+
         bgforlevel = findViewById(R.id.bgforlevel);
         btnHammer = findViewById(R.id.btnHammer);
         btnShuffle = findViewById(R.id.btnShuffle);
@@ -739,7 +746,6 @@ public abstract class BaseLevelActivity extends AppCompatActivity {
 
                     if (TARGETS[candyType] > 0) {
                         TARGETS[candyType]--;
-                        updateTargetProgress();
                         updateTargetText();
                         checkGameOver();
                     }
@@ -1388,42 +1394,7 @@ public abstract class BaseLevelActivity extends AppCompatActivity {
                 .start();
     }
 
-    void updateTargetProgress() {
-        int remaining = 0;
-        for (int t : TARGETS) remaining += t;
 
-        int completed = TOTAL_TARGET_COUNT - remaining;
-        int targetProgress = (completed * 100) / TOTAL_TARGET_COUNT;
-
-        animateProgress(lastProgress, targetProgress);
-        lastProgress = targetProgress;
-    }
-
-    void updateProgressColor(int percent) {
-        Drawable drawable = progressTargets.getProgressDrawable();
-
-        if (percent < 50) {
-            drawable.setColorFilter(Color.RED, PorterDuff.Mode.SRC_IN);
-        } else if (percent < 90) {
-            drawable.setColorFilter(Color.YELLOW, PorterDuff.Mode.SRC_IN);
-        } else {
-            drawable.setColorFilter(Color.GREEN, PorterDuff.Mode.SRC_IN);
-        }
-    }
-
-    void animateProgress(int from, int to) {
-        ObjectAnimator animator = ObjectAnimator.ofInt(
-                progressTargets,
-                "progress",
-                from,
-                to
-        );
-        animator.setDuration(1000); // smooth speed
-        animator.setInterpolator(new DecelerateInterpolator());
-        animator.start();
-
-        updateProgressColor(to);
-    }
 
     void startHintTimer() {
         hintHandler.removeCallbacksAndMessages(null);
@@ -2106,5 +2077,37 @@ public abstract class BaseLevelActivity extends AppCompatActivity {
                 views[r][c].setEnabled(enable);
             }
         }
+    }
+    @SuppressLint("MissingSuperCall")
+    @Override
+    public void onBackPressed() {
+
+
+        if (System.currentTimeMillis() - lastBackPressTime < BACK_PRESS_DELAY) {
+            showExitDialog();
+        } else {
+            lastBackPressTime = System.currentTimeMillis();
+            Toast.makeText(this, "Press back again to exit", Toast.LENGTH_SHORT).show();
+        }
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            onBackPressed(); // SAME behavior
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+    private void showExitDialog() {
+
+        new AlertDialog.Builder(this)
+                .setTitle("Exit Game")
+                .setMessage("Are you sure you want to close the game?")
+                .setCancelable(false)
+                .setPositiveButton("Yes", (dialog, which) -> {
+                    finishAffinity(); // closes entire app
+                })
+                .setNegativeButton("No", (dialog, which) -> dialog.dismiss())
+                .show();
     }
 }

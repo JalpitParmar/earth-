@@ -1,22 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item>
-        <layer-list  xmlns:android="http://schemas.android.com/apk/res/android">
-            <item android:id="@android:id/background">
-                <shape>
-                    <corners android:radius="5dp"/>
-                    <solid android:color="#33000000"/>
-                </shape>
-            </item>
-            <item android:id="@android:id/progress">
-                <clip>
-                    <shape>
-                        <corners android:radius="5dp"/>
-                        <solid android:color="@android:color/holo_red_light"/>
-                    </shape>
-                </clip>
-            </item>
-        </layer-list>
-    </item>
-</selector>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <!-- Background -->
+    <item android:id="@android:id/background">
+        <shape>
+            <corners android:radius="10dp"/>
+            <solid android:color="#2B000000"/>
+        </shape>
+    </item>
+
+    <!-- Progress body -->
+    <item android:id="@android:id/progress">
+        <clip>
+            <layer-list>
+
+                <!-- Base color -->
+                <item>
+                    <shape>
+                        <corners android:radius="10dp"/>
+                        <solid android:color="#FF3D3D"/>
+                    </shape>
+                </item>
+
+                <!-- Gloss highlight -->
+                <item android:top="2dp" android:bottom="6dp">
+                    <shape>
+                        <corners android:radius="8dp"/>
+                        <gradient
+                            android:startColor="#55FFFFFF"
+                            android:endColor="#00FFFFFF"
+                            android:angle="270"/>
+                    </shape>
+                </item>
+
+            </layer-list>
+        </clip>
+    </item>
+
+</layer-list>

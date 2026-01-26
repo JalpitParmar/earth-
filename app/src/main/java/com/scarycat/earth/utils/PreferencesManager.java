@@ -4,6 +4,10 @@ package com.scarycat.earth.utils;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 public class PreferencesManager {
 
     private static final String PREFS_NAME = "earth_game_prefs";
@@ -53,5 +57,9 @@ public class PreferencesManager {
     // Clear all preferences
     public void clear() {
         editor.clear().apply();
+    }
+    public static String getToday() {
+        return new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+                .format(new Date());
     }
 }

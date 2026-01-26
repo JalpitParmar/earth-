@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.media.SoundPool;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.GridView;
 import android.widget.ImageButton;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.scarycat.earth.utils.LevelAdapter;
@@ -34,7 +36,7 @@ import java.util.List;
 public class Meanu extends AppCompatActivity {
     SoundPool soundPool;
     int tapSound,swaplevelsound;
-    ImageButton btnShop, btnWatchAdHeart, btnNext, btnPrev,btnspin,btnmission;
+    ImageButton btnShop, btnWatchAdHeart, btnNext, btnPrev,btnspin,btnmission,btnback;
     TextView tvGoldBars, tvHearts, tvCoins,tvhammer,tvbomb,tvswap,tvcolor_bomb;
     GridView gridLevels;
     RelativeLayout rootLayout;
@@ -61,7 +63,8 @@ public class Meanu extends AppCompatActivity {
     private static final int MAX_LEVEL = 50; // or however many you have
 
     private boolean isFirstLoad = true;
-
+    private long lastBackPressTime = 0;
+    private static final long BACK_PRESS_DELAY = 2000; // 2 seconds
 
 
     @SuppressLint("MissingInflatedId")
@@ -101,6 +104,7 @@ public class Meanu extends AppCompatActivity {
         rootLayout = findViewById(R.id.rootLayout);
         btnspin = findViewById(R.id.meanu_btnspin);
         btnmission = findViewById(R.id.meanu_btnmission);
+        btnback = findViewById(R.id.btnback);
 
         updateCurrencyDisplay();
         btnShop.setOnClickListener(v -> {
@@ -120,13 +124,41 @@ public class Meanu extends AppCompatActivity {
                                     .scaleX(1f)
                                     .scaleY(1f)
                                     .setDuration(80)
-                                    .withEndAction(() ->
-                                            startActivity(new Intent(this, Shop.class))
-                                    )
+                                    .withEndAction(() ->{
+                                        startActivity(new Intent(this, Shop.class));
+                                        finish();
+                                    })
                             )
                     );
 
         });
+        btnback.setOnClickListener(v -> {
+            if(prefs.getBoolean("sfx_on", true)){
+                float val = prefs.getInt("sfx_volume", 80);
+                soundPool.play(tapSound, val, val, 1, 0, 1f);
+
+            }
+            Intent intent = new Intent(this, home.class);
+            v.animate()
+                    .scaleX(0.85f)
+                    .scaleY(0.85f)
+                    .setDuration(80)
+                    .withEndAction(() -> v.animate()
+                            .scaleX(1.05f)
+                            .scaleY(1.05f)
+                            .setDuration(120)
+                            .withEndAction(() -> v.animate()
+                                    .scaleX(1f)
+                                    .scaleY(1f)
+                                    .setDuration(80)
+                                    .withEndAction(() ->{
+                                        startActivity(intent);
+                                        finish();
+                                    })
+                            )
+                    );
+        });
+
 
         btnNext.setOnClickListener(v -> {
             if(prefs.getBoolean("sfx_on", true)){
@@ -182,9 +214,10 @@ public class Meanu extends AppCompatActivity {
                                     .scaleX(1f)
                                     .scaleY(1f)
                                     .setDuration(80)
-                                    .withEndAction(() ->
-                                            startActivity(intent)
-                                    )
+                                    .withEndAction(() ->{
+                                        startActivity(intent);
+                                        finish();
+                                    })
                             )
                     );
         });
@@ -206,9 +239,10 @@ public class Meanu extends AppCompatActivity {
                                     .scaleX(1f)
                                     .scaleY(1f)
                                     .setDuration(80)
-                                    .withEndAction(() ->
-                                            startActivity(intent)
-                                    )
+                                    .withEndAction(() ->{
+                                        startActivity(intent);
+                                        finish();
+                                    })
                             )
                     );
 
@@ -236,6 +270,7 @@ public class Meanu extends AppCompatActivity {
             Toast.makeText(this, "level", Toast.LENGTH_SHORT).show();
             // Start the level if hearts > 0
             startActivity(LevelRouter.getLevel(this, item.levelNumber));
+            finish();
 
         });
 
@@ -432,5 +467,37 @@ public class Meanu extends AppCompatActivity {
         });
 
         rootLayout.startAnimation(fadeOut);
+    }
+    @SuppressLint("MissingSuperCall")
+    @Override
+    public void onBackPressed() {
+
+
+        if (System.currentTimeMillis() - lastBackPressTime < BACK_PRESS_DELAY) {
+            showExitDialog();
+        } else {
+            lastBackPressTime = System.currentTimeMillis();
+            Toast.makeText(this, "Press back again to exit", Toast.LENGTH_SHORT).show();
+        }
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            onBackPressed(); // SAME behavior
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+    private void showExitDialog() {
+
+        new AlertDialog.Builder(this)
+                .setTitle("Exit Game")
+                .setMessage("Are you sure you want to close the game?")
+                .setCancelable(false)
+                .setPositiveButton("Yes", (dialog, which) -> {
+                    finishAffinity(); // closes entire app
+                })
+                .setNegativeButton("No", (dialog, which) -> dialog.dismiss())
+                .show();
     }
 }
