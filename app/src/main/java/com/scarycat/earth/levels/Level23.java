@@ -16,9 +16,9 @@ public class Level23 extends BlockerLevelBaseActivity {
         TIME_LEFT = 80;
         HAS_BLOCKERS = true;
         ICE = new int[] {
-                R.drawable.ice_1,
-                R.drawable.ice_2,
-                R.drawable.ice_3
+                R.drawable.wood_1,
+                R.drawable.wood_2,
+                R.drawable.wood_3
         };
         ALLOWED_CANDIES = new int[]{0,1,2,3,4,5,6,7,8};
         SPAWN_RATE =new int[]{22,22,18,15,10,8,5,0,0};

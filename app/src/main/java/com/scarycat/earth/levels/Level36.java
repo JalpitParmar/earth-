@@ -16,9 +16,9 @@ public class Level36 extends BlockerLevelBaseActivity {
         TIME_LEFT = 70;
         HAS_BLOCKERS = true;
         ICE = new int[] {
-                R.drawable.ice_1,
-                R.drawable.ice_2,
-                R.drawable.ice_3
+                R.drawable.lava_1,
+                R.drawable.lava_2,
+                R.drawable.lava_3
         };
         ALLOWED_CANDIES = new int[]{0,1,2,3,4,5,6,7,8};
         SPAWN_RATE =new int[]{0,18,17,16,16,12,11,10,0};
